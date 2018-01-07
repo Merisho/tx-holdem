@@ -3,10 +3,12 @@ const Combination = require('../combination');
 const HandsCollection = require('../hands-collection');
 const HandDataBuilder = require('./dataBuilder/HandDataBuilder');
 
+const boardBuilder = new HandDataBuilder().withCardsOfClubs('deuce', 'ten', 'six', 'jack').withCardsOfSpades('king');
+
 describe('Hands combinations', () => {
 	it('Number of combinations', () => {
-		const hand = new HandDataBuilder().withCardsOfClubs('deuce', 'six').build();
-		const board = new HandDataBuilder().withStraightFrom('seven').build();
+		const board = boardBuilder.build();
+		const hand = new HandDataBuilder().withCardsOfClubs('seven', 'eight').build();
 		
 		const collection = HandsCollection.createCombinations(hand, board);
 		
@@ -14,7 +16,7 @@ describe('Hands combinations', () => {
 	});
 
 	it('Highest combination', () => {
-		const board = new HandDataBuilder().withCardsOfClubs('deuce', 'ten', 'six', 'jack').withCardsOfSpades('king').build();
+		const board = boardBuilder.build();
 		const hand = new HandDataBuilder().withCardsOfClubs('seven').withCardsOfSpades('ace').build();
 		
 		const collection = HandsCollection.createCombinations(board, hand);
@@ -23,7 +25,7 @@ describe('Hands combinations', () => {
 	});
 
 	it('Lowest combination', () => {
-		const board = new HandDataBuilder().withCardsOfClubs('six', 'seven', 'eight', 'nine').withCardsOfSpades('ace').build();
+		const board = boardBuilder.build();
 		const hand = new HandDataBuilder().withCardsOfClubs('ace').withCardsOfSpades('ten').build();
 		
 		const collection = HandsCollection.createCombinations(board, hand);
