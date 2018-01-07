@@ -16,7 +16,7 @@ describe('Draw combination', function() {
                 ], 0);
             });
 
-            it('Sequence of 3 cards, 2 necessary are missing', function() {
+            it('Sequence of 3 cards, 2 necessary are missing for straight', function() {
                 testCombination([
                     new Card(0, Card.FOUR),
                     new Card(1, Card.FIVE),

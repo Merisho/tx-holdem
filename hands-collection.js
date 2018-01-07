@@ -9,10 +9,18 @@ class HandsCollection {
 
     get highestHand() {
         return this.hands[this.hands.length - 1];
-    }
+	}
+	
+	get highestCombinationRank() {
+		return this.highestHand.combination.rank;
+	}
 
     get lowestHand() {
         return this.hands[0];
+	}
+
+	get lowestCombinationRank() {
+		return this.lowestHand.combination.rank;
 	}
 
 	get count() {
