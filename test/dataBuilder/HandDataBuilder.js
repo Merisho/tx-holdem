@@ -6,21 +6,20 @@ class HandDataBuilder {
         this.hand = new Hand();
     }
 
-    withCardsOfClubs(...args) {
-        args = args.slice(0, 5);
-        args.forEach(cardValueName => {
-            cardValueName = cardValueName.toUpperCase();
-            this.hand.addCard(new Card(Card.CLUBS, Card[cardValueName]));
-        });
-
-        return this;
+    withCardsOfClubs(...values) {
+        return this.withCardsOf('CLUBS', ...values);
     }
 
-    withCardsOfSpades(...args) {
-        args = args.slice(0, 5);
-        args.forEach(cardValueName => {
+    withCardsOfSpades(...values) {
+        return this.withCardsOf('SPADES', ...values);
+    }
+
+    withCardsOf(suit, ...values) {
+        suit = suit.toUpperCase();
+        values = values.slice(0, 5);
+        values.forEach(cardValueName => {
             cardValueName = cardValueName.toUpperCase();
-            this.hand.addCard(new Card(Card.SPADES, Card[cardValueName]));
+            this.hand.addCard(new Card(Card[suit], Card[cardValueName]));
         });
 
         return this;
