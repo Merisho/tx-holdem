@@ -7,8 +7,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "node-linq": "^0.0.5",
-    "smp-data-builder": "^1.0.3"
+    "node-linq": "^0.0.5"
   },
   "devDependencies": {
     "mocha": "^3.2.0"

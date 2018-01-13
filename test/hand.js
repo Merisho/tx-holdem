@@ -6,12 +6,12 @@ describe('Hand', () => {
 	it('adds sequence of cards', () => {
 		const hand = new Hand();
 		const cards = [
-			Card.EIGHT,
-			Card.SEVEN,
-			Card.SIX,
-			Card.FIVE,
-			Card.FOUR
-		].map(value => new Card(Card.CLUBS, value));
+			new Card(Card.CLUBS, Card.EIGHT),
+			new Card(Card.CLUBS, Card.SEVEN),
+			new Card(Card.CLUBS, Card.SIX),
+			new Card(Card.CLUBS, Card.FIVE),
+			new Card(Card.CLUBS, Card.FOUR)
+		];
 
 		const added = hand.addCards(...cards);
 
@@ -20,15 +20,15 @@ describe('Hand', () => {
 
 	it('does not add repeated cards', () => {
 		const hand = new Hand();
-		const cards = [
-			Card.EIGHT,
-			Card.EIGHT,
-			Card.FIVE,
-			Card.FIVE,
-			Card.FOUR
-		].map(value => new Card(Card.CLUBS, value));
+		const repeatedCards = [
+			new Card(Card.CLUBS, Card.EIGHT),
+			new Card(Card.CLUBS, Card.EIGHT),
+			new Card(Card.CLUBS, Card.SIX),
+			new Card(Card.CLUBS, Card.SIX),
+			new Card(Card.CLUBS, Card.FOUR)
+		];
 
-		const added = hand.addCards(...cards);
+		const added = hand.addCards(...repeatedCards);
 
 		assert.strictEqual(added, false);
 	});
@@ -36,12 +36,12 @@ describe('Hand', () => {
 	it('sorts card in ascending order by default', () => {
 		const hand = new Hand();
 		const cardsInDescending = [
-			Card.EIGHT,
-			Card.SEVEN,
-			Card.SIX,
-			Card.FIVE,
-			Card.FOUR
-		].map(value => new Card(Card.CLUBS, value));
+			new Card(Card.CLUBS, Card.EIGHT),
+			new Card(Card.CLUBS, Card.SEVEN),
+			new Card(Card.CLUBS, Card.SIX),
+			new Card(Card.CLUBS, Card.FIVE),
+			new Card(Card.CLUBS, Card.FOUR)
+		];
 		
 		hand.addCards(...cardsInDescending);
 
