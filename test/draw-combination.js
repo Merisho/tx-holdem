@@ -1,267 +1,173 @@
 const assert = require('assert');
 const Card = require('../card');
 const Hand = require('../hand');
+const DrawCombination = require('../draw-combination');
+const HandBuilder = require('./dataBuilder/HandDataBuilder');
 
-describe('Draw combination', function() {
-    describe('Straight draw', function() {
-
-        describe('No chances', function() {
-            it('Random cards', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.FIVE),
-                    new Card(2, Card.SEVEN),
-                    new Card(3, Card.NINE),
-                    new Card(0, Card.ACE)
-                ], 0);
+describe('Draw combination', () => {
+    describe('Straight draw', () => {
+        describe('No chances', () => {
+            it('Random cards', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'five', 'seven', 'nine', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 0);
             });
 
-            it('Sequence of 3 cards, 2 necessary are missing for straight', function() {
-                testCombination([
-                    new Card(0, Card.FOUR),
-                    new Card(1, Card.FIVE),
-                    new Card(2, Card.SIX),
-                    new Card(3, Card.NINE),
-                    new Card(0, Card.JACK)
-                ], 0);
+            it('Sequence of 3 cards, 2 necessary are missing for straight', () => {
+                const hand = new HandBuilder().withDifferentSuits('four', 'five', 'six', 'nine', 'jack').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 0);
             });
 
-            it('Seems like gutshot but it is not', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.THREE),
-                    new Card(2, Card.SIX),
-                    new Card(0, Card.ACE)
-                ], 0);
+            it('Seems like gutshot but it is not', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'six', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 0);
             });
 
-            it('Three cards', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.FOUR),
-                    new Card(2, Card.FIVE)
-                ], 0);
+            it('Three cards', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'four', 'five').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 0);
             });
         });
 
-        describe('Two side straight draw', function() {
-            it('Common two side, five or ten', function() {
-                testCombination([
-                    new Card(0, Card.SIX),
-                    new Card(1, Card.SEVEN),
-                    new Card(2, Card.EIGHT),
-                    new Card(3, Card.NINE)
-                ], 8);
+        describe('Two side straight draw', () => {
+            it('Common two side, five or ten is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('six', 'seven', 'eight', 'nine').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 8);
             });
 
-            it('Common two side, ace or nine', function() {
-                testCombination([
-                    new Card(0, Card.TEN),
-                    new Card(1, Card.JACK),
-                    new Card(2, Card.QUEEN),
-                    new Card(3, Card.KING)
-                ], 8);
+            it('Common two side, ace or nine is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('ten', 'jack', 'queen', 'king').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 8);
             });
 
-            it('Edge variant, ace or six', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.THREE),
-                    new Card(2, Card.FOUR),
-                    new Card(3, Card.FIVE)
-                ], 8);
+            it('Edge variant, ace or six is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'four', 'five').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 8);
             });
         });
 
-        describe('One side straight draw', function() {
-            it('Highest straight, ten', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.JACK),
-                    new Card(2, Card.QUEEN),
-                    new Card(3, Card.KING),
-                    new Card(0, Card.ACE)
-                ], 4);
+        describe('One side straight draw', () => {
+            it('Highest straight, ten is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'jack', 'queen', 'king', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
 
-            it('Lowest straight, five', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.THREE),
-                    new Card(2, Card.FOUR),
-                    new Card(3, Card.SIX),
-                    new Card(0, Card.ACE)
-                ], 4);
+            it('Lowest straight, five is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'four', 'six', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
         });
 
-        describe('Gutshot straight draw', function() {
-            it('Common gutshot, one card by left', function() {
-                testCombination([
-                    new Card(0, Card.TEN),
-                    new Card(1, Card.KING),
-                    new Card(1, Card.QUEEN),
-                    new Card(2, Card.ACE)
-                ], 4);
+        describe('Gutshot straight draw', () => {
+            it('Common gutshot, second card (jack) in sequence is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('ten', 'king', 'queen', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
 
-            it('Common gutshot, two separate cards by left', function() {
-                testCombination([
-                    new Card(0, Card.SEVEN),
-                    new Card(0, Card.TEN),
-                    new Card(1, Card.KING),
-                    new Card(1, Card.QUEEN),
-                    new Card(2, Card.ACE)
-                ], 4);
+            it('Common gutshot, second card (jack) in sequence is missing in hand with 5 cards', () => {
+                const hand = new HandBuilder().withDifferentSuits('seven', 'ten', 'king', 'queen', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
             
-            it('Common gutshot, two left two right', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.THREE),
-                    new Card(1, Card.FIVE),
-                    new Card(2, Card.SIX)
-                ], 4);
+            it('Common gutshot, third card (four) is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'five', 'six').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
 
-            it('Common gutshot, one card by right', function() {
-                testCombination([
-                    new Card(0, Card.SEVEN),
-                    new Card(1, Card.EIGHT),
-                    new Card(1, Card.NINE),
-                    new Card(2, Card.JACK)
-                ], 4);
+            it('Common gutshot, fourth card (ten) is missing', () => {
+                const hand = new HandBuilder().withDifferentSuits('seven', 'eight', 'nine', 'jack').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
 
-            it('Common gutshot, two separate cards by right', function() {
-                testCombination([
-                    new Card(0, Card.SEVEN),
-                    new Card(1, Card.EIGHT),
-                    new Card(1, Card.NINE),
-                    new Card(2, Card.JACK),
-                    new Card(2, Card.ACE)
-                ], 4);
+            it('Common gutshot, fourth card (ten) is missing in hand with 5 cards', () => {
+                const hand = new HandBuilder().withDifferentSuits('seven', 'eight', 'nine', 'jack', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
 
-            it('Common gutshot, one random card by right', function() {
-                testCombination([
-                    new Card(0, Card.SIX),
-                    new Card(1, Card.EIGHT),
-                    new Card(1, Card.NINE),
-                    new Card(2, Card.TEN),
-                    new Card(2, Card.ACE)
-                ], 4);
+            it('Common gutshot, one random card by right', () => {
+                const hand = new HandBuilder().withDifferentSuits('six', 'eight', 'nine', 'ten', 'ace').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
-
-            it('Common gutshot, one random card by left', function() {
-                testCombination([
-                    new Card(0, Card.DEUCE),
-                    new Card(1, Card.EIGHT),
-                    new Card(1, Card.NINE),
-                    new Card(2, Card.TEN),
-                    new Card(2, Card.QUEEN)
-                ], 4);
+            
+            it('Common gutshot, one random card by left', () => {
+                const hand = new HandBuilder().withDifferentSuits('deuce', 'eight', 'nine', 'ten', 'queen').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 4);
             });
         });
     });
 
-    describe('Flush draw', function() {
-        it('No chances', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.DIAMONDS, Card.KING),
-                new Card(Card.HEARTS, Card.FOUR),
-                new Card(Card.SPADES, Card.TEN),
-                new Card(Card.SPADES, Card.SEVEN),
-            ], 0);
+    describe('Flush draw', () => {
+        it('No chances', () => {
+            const hand = new HandBuilder().withDifferentSuits('deuce', 'king', 'four', 'ten', 'seven').build();
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 0);
         });
 
-        it('Flush draw, 5 cards', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.CLUBS, Card.KING),
-                new Card(Card.CLUBS, Card.FOUR),
-                new Card(Card.CLUBS, Card.TEN),
-                new Card(Card.SPADES, Card.SEVEN),
-            ], 4);
+        it('Flush draw, 5 cards', () => {
+            const hand = new HandBuilder().withCardsOfClubs('deuce', 'king', 'four', 'ten').withCardsOfSpades('seven').build();
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 4);
         });
 
-        it('Flush draw, 4 cards', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.CLUBS, Card.KING),
-                new Card(Card.CLUBS, Card.FOUR),
-                new Card(Card.CLUBS, Card.TEN)
-            ], 4);
+        it('Flush draw, 4 cards', () => {
+            const hand = new HandBuilder().withCardsOfClubs('deuce', 'king', 'four', 'ten').build();
+            const draw = new DrawCombination(hand);            
+            assert.equal(draw.outs, 4);
         });
     });
 
-    describe('Straight and flush draw', function() {
-        it('Two side straight draw + flush draw', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.SPADES, Card.THREE),
-                new Card(Card.CLUBS, Card.FOUR),
-                new Card(Card.CLUBS, Card.FIVE),
-                new Card(Card.CLUBS, Card.SEVEN),
-            ], 12);
+    describe('Straight and flush draw', () => {
+        it('Two side straight draw + flush draw', () => {
+            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'five', 'seven').withCardsOfSpades('three').build();
+            const draw = new DrawCombination(hand);            
+            assert.equal(draw.outs, 12);
         });
 
-        it('One side straight draw + flush draw', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.SPADES, Card.THREE),
-                new Card(Card.CLUBS, Card.FOUR),
-                new Card(Card.CLUBS, Card.SIX),
-                new Card(Card.CLUBS, Card.ACE),
-            ], 8);
+        it('One side straight draw + flush draw', () => {
+            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'six', 'ace').withCardsOfSpades('three').build();
+            const draw = new DrawCombination(hand);            
+            assert.equal(draw.outs, 8);
         });
 
-        it('Gutshot straight draw + flush draw', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.DEUCE),
-                new Card(Card.SPADES, Card.THREE),
-                new Card(Card.CLUBS, Card.FOUR),
-                new Card(Card.CLUBS, Card.SIX),
-                new Card(Card.CLUBS, Card.TEN),
-            ], 8);
+        it('Gutshot straight draw + flush draw', () => {
+            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'six', 'ten').withCardsOfSpades('three').build();
+            const draw = new DrawCombination(hand);            
+            assert.equal(draw.outs, 8);
         });
     });
 
-    describe('Full house', function() {
-        it('Three of a kind in hand, hand size = 5', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.NINE),
-                new Card(Card.SPADES, Card.NINE),
-                new Card(Card.DIAMONDS, Card.NINE),
-                new Card(Card.HEARTS, Card.DEUCE),
-                new Card(Card.CLUBS, Card.FIVE)
-            ], 6);
+    describe('Full house', () => {
+        it('Three of a kind in hand, hand size = 5', () => {
+            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'nine', 'deuce', 'five').build();
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 6);
         });
-
-        it('Three of a kind in hand, hand size = 4', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.NINE),
-                new Card(Card.SPADES, Card.NINE),
-                new Card(Card.DIAMONDS, Card.NINE),
-                new Card(Card.HEARTS, Card.DEUCE)
-            ], 3);
+        
+        it('Three of a kind in hand, hand size = 4', () => {
+            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'nine', 'deuce').build();
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 3);
         });
-
-        it('Two pairs', function() {
-            testCombination([
-                new Card(Card.CLUBS, Card.NINE),
-                new Card(Card.SPADES, Card.NINE),
-                new Card(Card.DIAMONDS, Card.DEUCE),
-                new Card(Card.HEARTS, Card.DEUCE),
-                new Card(Card.CLUBS, Card.FIVE)
-            ], 4);
+        
+        it('Two pairs', () => {
+            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'deuce', 'deuce', 'five').build();
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 4);
         });
     });
-
 });
-
-function testCombination(cards, expected) {
-    var outs = (new Hand(cards)).drawCombination.outs;
-    assert.equal(outs, expected);
-}
