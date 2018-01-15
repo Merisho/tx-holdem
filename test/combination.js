@@ -3,9 +3,9 @@ const Card = require('../card');
 const Hand = require('../hand');
 const Combination = require('../combination');
 
-describe('Combination', function() {
-	describe('Kicker', function() {
-		it('detect combination', function() {
+describe('Combination', () => {
+	describe('Kicker', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 0],
 				[1, 1],
@@ -14,7 +14,7 @@ describe('Combination', function() {
 				[2, 12]
 			], Combination.KICKER);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			testCombinationCards([
 				[0, 0],
 				[1, 1],
@@ -24,8 +24,8 @@ describe('Combination', function() {
 			], 12);
 		});
 	});
-	describe('Pair', function() {
-		it('detect combination', function() {
+	describe('Pair', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -34,7 +34,7 @@ describe('Combination', function() {
 				[3, 0]
 			], Combination.PAIR);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			testCombinationCards([
 				[0, 1],
 				[1, 3],
@@ -44,8 +44,8 @@ describe('Combination', function() {
 			], 1);
 		});
 	});
-	describe('Two pair', function() {
-		it('detect combination', function() {
+	describe('Two pair', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -54,7 +54,7 @@ describe('Combination', function() {
 				[3, 0]
 			], Combination.TWO_PAIR);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			var hand = new Hand();
 			hand.addCard(new Card(0, 2));
 			hand.addCard(new Card(1, 1));
@@ -70,8 +70,8 @@ describe('Combination', function() {
 			assert.equal(combCards[3].value, 3);
 		});
 	});
-	describe('Three of a kind', function() {
-		it('detect combination', function() {
+	describe('Three of a kind', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -80,7 +80,7 @@ describe('Combination', function() {
 				[3, 4]
 			], Combination.THREE_OF_A_KIND);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			testCombinationCards([
 				[0, 1],
 				[1, 3],
@@ -90,8 +90,8 @@ describe('Combination', function() {
 			], 1);
 		});
 	});
-	describe('Straight', function() {
-		it('detect combination', function() {
+	describe('Straight', () => {
+		it('detect combination', () => {
 			// straight from 2 to 6
 			testCombination([
 				[0, 0],
@@ -110,7 +110,7 @@ describe('Combination', function() {
 				[0, 12]
 			], Combination.STRAIGHT);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			var hand = new Hand();
 			hand.addCard(new Card(0, 4));
 			hand.addCard(new Card(2, 3));
@@ -125,8 +125,8 @@ describe('Combination', function() {
 			}
 		});
 	});
-	describe('Flush', function() {
-		it('detect combination', function() {
+	describe('Flush', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 0],
 				[0, 5],
@@ -135,7 +135,7 @@ describe('Combination', function() {
 				[0, 3]
 			], Combination.FLUSH);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			var hand = new Hand();
 			hand.addCard(new Card(0, 12));
 			hand.addCard(new Card(0, 3));
@@ -150,8 +150,8 @@ describe('Combination', function() {
 			}
 		});
 	});
-	describe('Full-house', function() {
-		it('detect combination', function() {
+	describe('Full-house', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -160,7 +160,7 @@ describe('Combination', function() {
 				[3, 0]
 			], Combination.FULL_HOUSE);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			var hand = new Hand();
 			hand.addCard(new Card(0, 1));
 			hand.addCard(new Card(1, 1));
@@ -177,8 +177,8 @@ describe('Combination', function() {
 			assert.equal(combCards[4].value, 3);
 		});
 	});
-	describe('Four of a kind', function() {
-		it('detect combination', function() {
+	describe('Four of a kind', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -187,7 +187,7 @@ describe('Combination', function() {
 				[3, 0]
 			], Combination.FOUR_OF_A_KIND);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			testCombinationCards([
 				[0, 1],
 				[1, 3],
@@ -197,8 +197,8 @@ describe('Combination', function() {
 			], 1);
 		});
 	});
-	describe('Straigt flush', function() {
-		it('detect combination', function() {
+	describe('Straigt flush', () => {
+		it('detect combination', () => {
 			testCombination([
 				[0, 0],
 				[0, 1],
@@ -207,7 +207,7 @@ describe('Combination', function() {
 				[0, 4]
 			], Combination.STRAIGHT_FLUSH);
 		});
-		it('detect combination cards', function() {
+		it('detect combination cards', () => {
 			var hand = new Hand();
 			hand.addCard(new Card(0, 4));
 			hand.addCard(new Card(0, 3));
@@ -224,14 +224,14 @@ describe('Combination', function() {
 		});
 	});
 	
-	describe('Partial hands', function() {
-		it('Pair', function() {
+	describe('Partial hands', () => {
+		it('Pair', () => {
 			testCombination([
 				[0, 1],
 				[1, 1]
 			], Combination.PAIR);
 		});
-		it('Two pair', function() {
+		it('Two pair', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -239,14 +239,14 @@ describe('Combination', function() {
 				[3, 2]
 			], Combination.TWO_PAIR);
 		});
-		it('Three of a kind', function() {
+		it('Three of a kind', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
 				[2, 1]
 			], Combination.THREE_OF_A_KIND);
 		});
-		it('Four of a kind', function() {
+		it('Four of a kind', () => {
 			testCombination([
 				[0, 1],
 				[1, 1],
@@ -256,8 +256,8 @@ describe('Combination', function() {
 		});
 	});
 	
-	describe('Combinations comparison (lower - higher)', function() {
-		it('Kicker - Pair', function() {
+	describe('Combinations comparison (lower - higher)', () => {
+		it('Kicker - Pair', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 1],
 				[2, 1],
@@ -273,7 +273,7 @@ describe('Combination', function() {
 				[3, 12]
 			]);
 		});
-		it('Pair - Two Pair', function() {
+		it('Pair - Two Pair', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 1],
 				[2, 1],
@@ -289,7 +289,7 @@ describe('Combination', function() {
 				[3, 10]
 			]);
 		});
-		it('Two Pair - Three of a kind', function() {
+		it('Two Pair - Three of a kind', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 0],
 				[2, 0],
@@ -305,7 +305,7 @@ describe('Combination', function() {
 				[3, 10]
 			]);
 		});
-		it('Three of a kind - Straight', function() {
+		it('Three of a kind - Straight', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 6],
 				[2, 7],
@@ -321,7 +321,7 @@ describe('Combination', function() {
 				[3, 10]
 			]);
 		});
-		it('Straight - Flush', function() {
+		it('Straight - Flush', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 0],
 				[0, 5],
@@ -337,7 +337,7 @@ describe('Combination', function() {
 				[3, 10]
 			]);
 		});
-		it('Flush - Full-house', function() {
+		it('Flush - Full-house', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 6],
 				[2, 6],
@@ -353,7 +353,7 @@ describe('Combination', function() {
 				[0, 8]
 			]);
 		});
-		it('Full-house - Four of a kind', function() {
+		it('Full-house - Four of a kind', () => {
 			testCombinationComparisonHigherOrLower([
 				[3, 0],
 				[2, 0],
@@ -369,7 +369,7 @@ describe('Combination', function() {
 				[1, 8]
 			]);
 		});
-		it('Four of a kind - Straight flush', function() {
+		it('Four of a kind - Straight flush', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 6],
 				[0, 7],
@@ -385,7 +385,7 @@ describe('Combination', function() {
 				[0, 7]
 			]);
 		});
-		it('Straight flush - Royal flush', function() {
+		it('Straight flush - Royal flush', () => {
 			testCombinationComparisonHigherOrLower([
 				[1, 8],
 				[1, 9],
@@ -401,7 +401,7 @@ describe('Combination', function() {
 				[0, 7]
 			]);
 		});
-		it('Deuces Pair - Aces Pair', function() {
+		it('Deuces Pair - Aces Pair', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 12],
 				[1, 12],
@@ -416,7 +416,7 @@ describe('Combination', function() {
 				[1, 5]
 			]);
 		});
-		it('Deuces and Fours two pair - Deuces and Aces two pair', function() {
+		it('Deuces and Fours two pair - Deuces and Aces two pair', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 12],
 				[1, 12],
@@ -431,7 +431,7 @@ describe('Combination', function() {
 				[1, 5]
 			]);
 		});
-		it('Deuces three of a kind - Aces three of a kind', function() {
+		it('Deuces three of a kind - Aces three of a kind', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 12],
 				[1, 12],
@@ -446,7 +446,7 @@ describe('Combination', function() {
 				[1, 5]
 			]);
 		});
-		it('Deuce-Six straight - Ten-Ace straight', function() {
+		it('Deuce-Six straight - Ten-Ace straight', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 8],
 				[1, 9],
@@ -461,7 +461,7 @@ describe('Combination', function() {
 				[1, 4]
 			]);
 		});
-		it('Ace-Five straight - Deuce-Six straight', function() {
+		it('Ace-Five straight - Deuce-Six straight', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 0],
 				[1, 1],
@@ -476,7 +476,7 @@ describe('Combination', function() {
 				[1, 3]
 			]);
 		});
-		it('Ten the highest in flush - Ace the highest in flush', function() {
+		it('Ten the highest in flush - Ace the highest in flush', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 0],
 				[0, 1],
@@ -491,7 +491,7 @@ describe('Combination', function() {
 				[2, 3]
 			]);
 		});
-		it('One card difference flush: Four - five', function() {
+		it('One card difference flush: Four - five', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 5],
 				[0, 6],
@@ -506,7 +506,7 @@ describe('Combination', function() {
 				[0, 2]
 			]);
 		})
-		it('Full-house of Threes and Jacks  - Full-house of Tens and Nines', function() {
+		it('Full-house of Threes and Jacks  - Full-house of Tens and Nines', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 8],
 				[1, 8],
@@ -521,7 +521,7 @@ describe('Combination', function() {
 				[1, 9]
 			]);
 		});
-		it('Queens four of a kind  - Kings for of a kind', function() {
+		it('Queens four of a kind  - Kings for of a kind', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 11],
 				[1, 11],
@@ -536,7 +536,7 @@ describe('Combination', function() {
 				[1, 10]
 			]);
 		});
-		it('Deuce-Six straight flush  - Six-Ten straight flush', function() {
+		it('Deuce-Six straight flush  - Six-Ten straight flush', () => {
 			testCombinationComparisonHigherOrLower([
 				[0, 4],
 				[0, 5],
@@ -552,8 +552,8 @@ describe('Combination', function() {
 			]);
 		});
 	});
-	describe('Combination comparison (both equal)', function() {
-		it('Kicker', function() {
+	describe('Combination comparison (both equal)', () => {
+		it('Kicker', () => {
 			testCombinationComparisonEqual([
 				[0, 12],
 				[1, 5],
@@ -568,7 +568,7 @@ describe('Combination', function() {
 				[0, 8]
 			]);
 		});
-		it('Pair', function() {
+		it('Pair', () => {
 			testCombinationComparisonEqual([
 				[0, 0],
 				[1, 0],
@@ -583,7 +583,7 @@ describe('Combination', function() {
 				[0, 8]
 			]);
 		});
-		it('Two pair', function() {
+		it('Two pair', () => {
 			testCombinationComparisonEqual([
 				[0, 12],
 				[1, 12],
@@ -600,8 +600,8 @@ describe('Combination', function() {
 		});
 	});
 	
-	describe('Detect higher card which plays in combination', function() {
-		it('Kicker', function() {
+	describe('Detect higher card which plays in combination', () => {
+		it('Kicker', () => {
 			var comb = createHand([
 				[0, 0],
 				[0, 1],
@@ -611,7 +611,7 @@ describe('Combination', function() {
 			]).combination;
 			assert.equal(comb.highestCard.value, 8);
 		});
-		it('Pair', function() {
+		it('Pair', () => {
 			var comb = createHand([
 				[0, 0],
 				[0, 1],
@@ -621,7 +621,7 @@ describe('Combination', function() {
 			]).combination;
 			assert.equal(comb.highestCard.value, 11);
 		});
-		it('Two pair', function() {
+		it('Two pair', () => {
 			var comb = createHand([
 				[0, 0],
 				[0, 1],
@@ -631,7 +631,7 @@ describe('Combination', function() {
 			]).combination;
 			assert.equal(comb.highestCard.value, 11);
 		});
-		it('Three of a kind', function() {
+		it('Three of a kind', () => {
 			var comb = createHand([
 				[0, 0],
 				[0, 1],
@@ -641,7 +641,7 @@ describe('Combination', function() {
 			]).combination;
 			assert.equal(comb.highestCard.value, 11);
 		});
-		it('Straight', function() {
+		it('Straight', () => {
 			var comb = createHand([
 				[0, 0],
 				[0, 1],
@@ -651,7 +651,7 @@ describe('Combination', function() {
 			]).combination;
 			assert.equal(comb.highestCard.value, 4);
 		});
-		it('Full-house', function() {
+		it('Full-house', () => {
 			var comb = createHand([
 				[0, 0],
 				[1, 0],
