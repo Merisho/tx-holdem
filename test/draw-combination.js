@@ -8,25 +8,25 @@ describe('Draw combination', () => {
     describe('Straight draw', () => {
         describe('No chances', () => {
             it('Random cards', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'five', 'seven', 'nine', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 5, 7, 9, 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 0);
             });
 
             it('Sequence of 3 cards, 2 necessary are missing for straight', () => {
-                const hand = new HandBuilder().withDifferentSuits('four', 'five', 'six', 'nine', 'jack').build();
+                const hand = new HandBuilder().withDifferentSuits(4, 5, 6, 9, 'J').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 0);
             });
 
             it('Seems like gutshot but it is not', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'six', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 3, 6, 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 0);
             });
 
             it('Three cards', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'four', 'five').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 4, 5).build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 0);
             });
@@ -34,19 +34,19 @@ describe('Draw combination', () => {
 
         describe('Two side straight draw', () => {
             it('Common two side, five or ten is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('six', 'seven', 'eight', 'nine').build();
+                const hand = new HandBuilder().withDifferentSuits(6, 7, 8, 9).build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 8);
             });
 
             it('Common two side, ace or nine is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('ten', 'jack', 'queen', 'king').build();
+                const hand = new HandBuilder().withDifferentSuits(10, 'J', 'Q', 'K').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 8);
             });
 
             it('Edge variant, ace or six is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'four', 'five').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 3, 4, 5).build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 8);
             });
@@ -54,13 +54,13 @@ describe('Draw combination', () => {
 
         describe('One side straight draw', () => {
             it('Highest straight, ten is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'jack', 'queen', 'king', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 'J', 'Q', 'K', 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
 
             it('Lowest straight, five is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'four', 'six', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 3, 4, 6, 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
@@ -68,43 +68,43 @@ describe('Draw combination', () => {
 
         describe('Gutshot straight draw', () => {
             it('Common gutshot, second card (jack) in sequence is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('ten', 'king', 'queen', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(10, 'K', 'Q', 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
 
             it('Common gutshot, second card (jack) in sequence is missing in hand with 5 cards', () => {
-                const hand = new HandBuilder().withDifferentSuits('seven', 'ten', 'king', 'queen', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(7, 10, 'K', 'Q', 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
             
             it('Common gutshot, third card (four) is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'three', 'five', 'six').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 3, 5, 6).build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
 
             it('Common gutshot, fourth card (ten) is missing', () => {
-                const hand = new HandBuilder().withDifferentSuits('seven', 'eight', 'nine', 'jack').build();
+                const hand = new HandBuilder().withDifferentSuits(7, 8, 9, 'J').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
 
             it('Common gutshot, fourth card (ten) is missing in hand with 5 cards', () => {
-                const hand = new HandBuilder().withDifferentSuits('seven', 'eight', 'nine', 'jack', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(7, 8, 9, 'J', 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
 
             it('Common gutshot, one random card by right', () => {
-                const hand = new HandBuilder().withDifferentSuits('six', 'eight', 'nine', 'ten', 'ace').build();
+                const hand = new HandBuilder().withDifferentSuits(6, 8, 9, 10, 'A').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
             
             it('Common gutshot, one random card by left', () => {
-                const hand = new HandBuilder().withDifferentSuits('deuce', 'eight', 'nine', 'ten', 'queen').build();
+                const hand = new HandBuilder().withDifferentSuits(2, 8, 9, 10, 'Q').build();
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
@@ -113,19 +113,19 @@ describe('Draw combination', () => {
 
     describe('Flush draw', () => {
         it('No chances', () => {
-            const hand = new HandBuilder().withDifferentSuits('deuce', 'king', 'four', 'ten', 'seven').build();
+            const hand = new HandBuilder().withDifferentSuits(2, 'K', 4, 10, 7).build();
             const draw = new DrawCombination(hand);
             assert.equal(draw.outs, 0);
         });
 
         it('Flush draw, 5 cards', () => {
-            const hand = new HandBuilder().withCardsOfClubs('deuce', 'king', 'four', 'ten').withCardsOfSpades('seven').build();
+            const hand = new HandBuilder().withCardsOfClubs(2, 'K', 4, 10).withCardsOfSpades(7).build();
             const draw = new DrawCombination(hand);
             assert.equal(draw.outs, 4);
         });
 
         it('Flush draw, 4 cards', () => {
-            const hand = new HandBuilder().withCardsOfClubs('deuce', 'king', 'four', 'ten').build();
+            const hand = new HandBuilder().withCardsOfClubs(2, 'K', 4, 10).build();
             const draw = new DrawCombination(hand);            
             assert.equal(draw.outs, 4);
         });
@@ -133,19 +133,19 @@ describe('Draw combination', () => {
 
     describe('Straight and flush draw', () => {
         it('Two side straight draw + flush draw', () => {
-            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'five', 'seven').withCardsOfSpades('three').build();
+            const hand = new HandBuilder().withCardsOfClubs(2, 4, 5, 7).withCardsOfSpades(3).build();
             const draw = new DrawCombination(hand);            
             assert.equal(draw.outs, 12);
         });
 
         it('One side straight draw + flush draw', () => {
-            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'six', 'ace').withCardsOfSpades('three').build();
+            const hand = new HandBuilder().withCardsOfClubs(2, 4, 6, 'A').withCardsOfSpades(3).build();
             const draw = new DrawCombination(hand);            
             assert.equal(draw.outs, 8);
         });
 
         it('Gutshot straight draw + flush draw', () => {
-            const hand = new HandBuilder().withCardsOfClubs('deuce', 'four', 'six', 'ten').withCardsOfSpades('three').build();
+            const hand = new HandBuilder().withCardsOfClubs(2, 4, 6, 10).withCardsOfSpades(3).build();
             const draw = new DrawCombination(hand);            
             assert.equal(draw.outs, 8);
         });
@@ -153,19 +153,19 @@ describe('Draw combination', () => {
 
     describe('Full house', () => {
         it('Three of a kind in hand, hand size = 5', () => {
-            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'nine', 'deuce', 'five').build();
+            const hand = new HandBuilder().withDifferentSuits(9, 9, 9, 2, 5).build();
             const draw = new DrawCombination(hand);
             assert.equal(draw.outs, 6);
         });
         
         it('Three of a kind in hand, hand size = 4', () => {
-            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'nine', 'deuce').build();
+            const hand = new HandBuilder().withDifferentSuits(9, 9, 9, 2).build();
             const draw = new DrawCombination(hand);
             assert.equal(draw.outs, 3);
         });
         
         it('Two pairs', () => {
-            const hand = new HandBuilder().withDifferentSuits('nine', 'nine', 'deuce', 'deuce', 'five').build();
+            const hand = new HandBuilder().withDifferentSuits(9, 9, 2, 2, 5).build();
             const draw = new DrawCombination(hand);
             assert.equal(draw.outs, 4);
         });

@@ -26,15 +26,15 @@ class HandDataBuilder {
         suit %= Card.SUIT_MAX + 1;
         values = values.slice(0, 5);
         values.forEach(cardValueName => {
-            cardValueName = cardValueName.toUpperCase();
-            this.hand.addCard(new Card(suit, Card[cardValueName]));
+            const value = getCardValueByName(cardValueName);
+            this.hand.addCard(new Card(suit, value));
         });
 
         return this;
     }
 
     withStraightFrom(start) {      
-        start = Card[start.toUpperCase()];
+        start = getCardValueByName(start);
 
         if(start > Card.TEN && start !== Card.ACE) {
             start = Card.TEN;
@@ -59,5 +59,25 @@ class HandDataBuilder {
         return hand;
     }
 }
+
+const cardValueNameToCardValue = {
+    2: Card.DEUCE,
+    3: Card.THREE,
+    4: Card.FOUR,
+    5: Card.FIVE,
+    6: Card.SIX,
+    7: Card.SEVEN,
+    8: Card.EIGHT,
+    9: Card.NINE,
+    10: Card.TEN,
+    j: Card.JACK,
+    q: Card.QUEEN,
+    k: Card.KING,
+    a: Card.ACE
+};
+function getCardValueByName(name) {
+    name = name && name.toString().toLowerCase();
+    return cardValueNameToCardValue[name];
+} 
 
 module.exports = HandDataBuilder;

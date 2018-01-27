@@ -19,7 +19,7 @@ class Combination {
 
     get cards() {
         if(!this._cards) {
-			this._cards = _getCombinationCards(this._hand, this.rank)
+			this._cards = _getCombinationCards(this._hand, this.rank);
 		}
 		
 		return this._cards;
@@ -43,12 +43,14 @@ class Combination {
 	 * @returns {Number}
 	 */
     compare(combination) {
-		const r1 = this.rank;
-		const r2 = combination.rank;
-		if(r1 > r2) {
+		if(this.rank > combination.rank) {
 			return 1;
-		} else if(r1 < r2) {
+		} else if(this.rank < combination.rank) {
 			return -1;
+		}
+
+		if(this.rank === Combination.FULL_HOUSE) {
+			return this._fullHouseComparison(combination);
 		}
 
 		const highestCardComparison = this.highestCard.compare(combination.highestCard);
@@ -64,6 +66,47 @@ class Combination {
 			}
 		}
 		
+		return 0;
+	}
+
+	// @TODO Refactor this shit
+	_fullHouseComparison(combination) {
+		const combinationCardsValuesCount = {};
+		const thisCardsValuesCount = {};
+		const counter = map => card => {
+			if(map[card.value]) {
+				map[card.value]++;
+			} else {
+				map[card.value] = 1;
+			}
+		};
+		
+		combination.cards.forEach(counter(combinationCardsValuesCount));
+		this.cards.forEach(counter(thisCardsValuesCount));
+
+		let highestCombinationValue;
+		let highestThisValue;
+
+		for(let cardValue in combinationCardsValuesCount) {
+			if(combinationCardsValuesCount[cardValue] === 3) {
+				highestCombinationValue = cardValue;
+				break;
+			}
+		}
+
+		for(let cardValue in thisCardsValuesCount) {
+			if(thisCardsValuesCount[cardValue] === 3) {
+				highestThisValue = cardValue;
+				break;
+			}
+		}
+
+		if(highestThisValue > highestCombinationValue) {
+			return 1;
+		} else if(highestThisValue < highestCombinationValue) {
+			return -1;
+		}
+
 		return 0;
 	}
 
@@ -110,11 +153,19 @@ function _calculateCombination(hand) {
 }
 
 function _isFlush(cards) {
+	if(!cards || cards.length !== 5) {
+		return false;
+	}
+
 	const suit = cards[0].suit;
 	return cards.every(card => card.suit === suit);
 }
 
 function _isStraight(cards) {
+	if(!cards || cards.length !== 5) {
+		return false;
+	}
+
 	const maxIndex = cards.length - 1;
 	let isStraight = true;
 	for(let i = 0; i < maxIndex - 1; i++) {
@@ -179,12 +230,12 @@ function _getCombinationCards(hand, rank) {
 	];
 	if(fiveCardCombinations.indexOf(rank) > -1) {
 		cards = hand.cards;
-	} else if(rank === Combination.KICKER) {
+	} else if(rank === Combination.KICKER) {	
 		cards = [ hand.cards[4] ];
-	} else {
+	} else {	
 		cards = _getCombinationCardsByValue(hand);
 	}
-	
+
 	return cards;
 }
 
@@ -205,20 +256,13 @@ function _getCombinationCardsByValue(hand) {
 			combinationCards = combinationCards.concat(f(i));
 		}
 	}
-	
+
 	return combinationCards;
 }
 
 function _getHighestCard(cards, rank) {
 	const maxIndex = cards.length - 1;
-	if(rank === Combination.FULL_HOUSE) {
-		const grouppedCards = new LINQ(cards).GroupBy(card => card.value);
-		for(let i in grouppedCards) {
-			if(grouppedCards[i].length === 3) {
-				return grouppedCards[i][0];
-			}
-		}
-	}
+
 	if(rank === Combination.STRAIGHT || rank === Combination.STRAIGHT_FLUSH) {
 		const last = cards[maxIndex];
 		const penult = cards[maxIndex - 1];
