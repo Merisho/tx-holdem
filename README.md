@@ -18,7 +18,7 @@ This is the module for creating own Texas Holdem poker game! It allows you to tr
 		pack.createCard('spades', 4),
 	);
 
-	const pairIsLower = pairHand.compare(fourOfAKind) === -1;
+	const pairIsLower = pairHand.compare(fourOfAKindHand) === -1;
 	console.log('Pair is lower than four of a kind:', pairIsLower);
 # API
 ## Pack
