@@ -1,6 +1,6 @@
 {
-  "name": "poker-new",
-  "version": "1.0.0",
+  "name": "tx-holdem",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -13,6 +13,9 @@
   "scripts": {
     "test": "mocha --recursive"
   },
-  "author": "",
+  "author": {
+    "name": "Alexei Torunov",
+    "email": "merisho@ukr.net"
+  },
   "license": "ISC"
 }
