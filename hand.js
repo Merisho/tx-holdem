@@ -1,5 +1,6 @@
 const Combination = require('./combination');
 const DrawCombination = require('./draw-combination');
+const Card = require('./card');
 
 class Hand {
     constructor(...cards) {
@@ -137,6 +138,10 @@ class Hand {
 
     isFourOfKind() {
         return this.combination == Combination.FOUR_OF_A_KIND;
+    }
+
+    isRoyalFlush() {
+        return this.isStraightFlush() && this.combination.highestCard == Card.ACE;
     }
 
     isStraightFlush() {

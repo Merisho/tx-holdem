@@ -4,7 +4,7 @@ const { SUIT_MAX, VALUE_MAX } = Card;
 
 const aliases = {
     clubs: Card.CLUBS,
-    diamond: Card.DIAMONDS,
+    diamonds: Card.DIAMONDS,
     hearts: Card.HEARTS,
     spades: Card.SPADES,
 
@@ -64,8 +64,8 @@ class Pack {
 
     /**
      * Creates card with given suit and value. If suit and value aren't given so random card will be generated
-     * @param {Number} suit
-     * @param {Number} value
+     * @param {Number|String} suit
+     * @param {Number|String} value
      * @returns {Card}
      */
     createCard(suit, value) {
