@@ -3,10 +3,16 @@ function _getOuts(hand) {
 }
 
 function _isFlushDraw(hand) {
-    const suitsCount = [0, 0, 0, 0];
-    hand.forEach(c => suitsCount[c.suit]++);
+    const suitsCount = {};
+    hand.forEach(c => {
+        if (!suitsCount[c.suit]) {
+            suitsCount[c.suit] = 0;
+        }
 
-    return !!suitsCount.filter(s => s === 4).length;
+        suitsCount[c.suit]++;
+    });
+
+    return !!Object.keys(suitsCount).filter(s => suitsCount[s] === 4).length;
 }
 
 module.exports = function(hand) {

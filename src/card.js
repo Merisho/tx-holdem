@@ -55,10 +55,10 @@ class Card {
         return this.value === this.constructor.ACE;
     }
 
-    static get CLUBS() { return 0; }
-    static get DIAMONDS() { return 1; }
-    static get HEARTS() { return 2; }
-    static get SPADES() { return 3; }
+    static get CLUBS() { return 20; }
+    static get DIAMONDS() { return 21; }
+    static get HEARTS() { return 22; }
+    static get SPADES() { return 23; }
     static get SUIT_MAX() { return this.SPADES; }
 
     static get DEUCE() { return 0; }
