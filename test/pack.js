@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Pack = require('../pack');
+const Pack = require('../src/pack');
 
 describe('Pack', function() {
 	it('create random card', function() {

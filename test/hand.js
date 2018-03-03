@@ -1,6 +1,6 @@
 const assert = require('assert');
-const Card = require('../card');
-const Hand = require('../hand');
+const Card = require('../src/card');
+const Hand = require('../src/hand');
 
 describe('Hand', () => {
 	it('adds sequence of cards', () => {

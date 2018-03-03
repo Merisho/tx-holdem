@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Card = require('../card');
+const Card = require('../src/card');
 
 describe('Card', () => {
 	it('compares cards', () => {

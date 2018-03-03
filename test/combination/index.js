@@ -1,6 +1,6 @@
 const assert = require('assert');
-const Card = require('../../card');
-const Combination = require('../../combination');
+const Card = require('../../src/card');
+const Combination = require('../../src/combination');
 const HandBuilder = require('../dataBuilder/HandDataBuilder');
 
 describe('Combination', () => {

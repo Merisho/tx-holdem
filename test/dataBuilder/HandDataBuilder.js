@@ -1,5 +1,5 @@
-const Hand = require('../../hand');
-const Card = require('../../card');
+const Hand = require('../../src/hand');
+const Card = require('../../src/card');
 
 class HandDataBuilder {
     constructor() {

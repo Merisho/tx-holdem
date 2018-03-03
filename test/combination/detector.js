@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 const HandBuilder = require('../dataBuilder/HandDataBuilder');
-const detector = require('../../combination/detector');
+const detector = require('../../src/combination/detector');
 
 describe('Combination detector', () => {
     it('Should NOT detect full house as three of a kind', () => {

@@ -1,6 +1,6 @@
 const assert = require('assert');
-const Combination = require('../combination');
-const HandsCollection = require('../hands-collection');
+const Combination = require('../src/combination');
+const HandsCollection = require('../src/hands-collection');
 const HandDataBuilder = require('./dataBuilder/HandDataBuilder');
 
 const boardBuilder = new HandDataBuilder().withCardsOfClubs(2, 10, 6, 'J').withCardsOfSpades('K');
