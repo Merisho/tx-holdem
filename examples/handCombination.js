@@ -1,5 +1,4 @@
-const Pack = require('../pack');
-const Hand = require('../hand');
+const { Pack, Hand } = require('../');
 
 const pack = new Pack();
 
