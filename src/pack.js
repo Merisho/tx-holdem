@@ -27,6 +27,9 @@ const aliases = {
     a: Card.ACE
 };
 
+/**
+ * @class Pack
+*/
 class Pack {
     constructor() {
         this.cards = [];
@@ -40,10 +43,18 @@ class Pack {
 		}
     }
 
+	/**
+	 * Clear pack
+	*/
     destroy() {
         this.cards = [];
     }
 
+	/**
+	 * Count of created cards in pack
+	 * @readonly
+	 * @type {Number}
+	 */
     get count() {
         return this.cards.length;
     }
@@ -63,9 +74,12 @@ class Pack {
 	}
 
     /**
-     * Creates card with given suit and value. If suit and value aren't given so random card will be generated
-     * @param {Number|String} suit
-     * @param {Number|String} value
+     * Creates random card
+     * @returns {Card}
+     *//**
+     * Creates card with given suit and value
+     * @param {String} suit
+     * @param {String} value
      * @returns {Card}
      */
     createCard(suit, value) {
@@ -97,8 +111,7 @@ class Pack {
      * Checks whether card exists in current Pack
      * @param {Card} card
      * @returns {Boolean}
-     */
-    /**
+     *//**
      * Checks whether card exists in current Pack
      * @param {Number} suit
      * @param {Number} value

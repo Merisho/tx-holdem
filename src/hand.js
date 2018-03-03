@@ -2,7 +2,14 @@ const Combination = require('./combination');
 const DrawCombination = require('./draw-combination');
 const Card = require('./card');
 
+/**
+ * @class Hand
+*/
 class Hand {
+    /**
+     * Creates hand
+     * @param {Array} cards Array or enumeration of @see Card instances
+     */
     constructor(...cards) {
         cards = cards[0] && cards[0] instanceof Array ? cards[0] : cards;
 
@@ -13,6 +20,11 @@ class Hand {
         this.sort();
     }
 
+    /**
+     * Returns Combination instance for this hand
+     * @readonly
+     * @returns {Combination}
+     */
     get combination() {
         if(!this._combination) {
             this._combination = new Combination(this);
@@ -21,6 +33,11 @@ class Hand {
         return this._combination;
     }
 
+    /**
+     * Returns DrawCombination instance for this hand
+     * @readonly
+     * @returns {DrawCombination}
+     */
     get drawCombination() {
         if(!this._drawCombination) {
             this._drawCombination = new DrawCombination(this);
@@ -71,17 +88,20 @@ class Hand {
         return this.cards[0];
     }
 
+    /**
+     * Return true if hand has reached maximum capacity
+     * @returns {Boolean}
+    */
     isFull() {
         return this.size === this.MAX_HAND_SIZE;
     }
 
     /**
-     * Checks whether card exists in current Pack
+     * Checks whether card exists in current hand
      * @param {Card} card
      * @returns {Boolean}
-     */
-    /**
-     * Checks whether card exists in current Pack
+     *//**
+     * Checks whether card exists in current hand
      * @param {Number} suit
      * @param {Number} value
      * @returns {Boolean}
@@ -108,61 +128,118 @@ class Hand {
         return this.combination.compare(hand.combination);
     }
 
+    /**
+     * Returns true if hand has nothing but kicker card
+     * @returns {Boolean}
+    */
     isKicker() {
         return this.combination == Combination.KICKER;
     }
 
+    /**
+     * Returns true if hand has pair
+     * @returns {Boolean}
+     */
     isPair() {
         return this.combination == Combination.PAIR;
     }
 
+    /**
+     * Returns true if hand has two pairs
+     * @returns {Boolean}
+     */
     isTwoPairs() {
         return this.combination == Combination.TWO_PAIR;
     }
 
+    /**
+     * Returns true if hand has three of a kind
+     * @returns {Boolean}
+     */
     isThreeOfKind() {
         return this.combination == Combination.THREE_OF_A_KIND;
     }
 
+    /**
+     * Returns true if hand has straight
+     * @returns {Boolean}
+     */
     isStraight() {
         return this.combination == Combination.STRAIGHT;
     }
 
+    /**
+     * Returns true if hand has flush
+     * @returns {Boolean}
+     */
     isFlush() {
         return this.combination == Combination.FLUSH;
     }
 
+    /**
+     * Returns true if hand has full house
+     * @returns {Boolean}
+     */
     isFullHouse() {
         return this.combination == Combination.FULL_HOUSE;
     }
 
+    /**
+     * Returns true if hand has four of a kind
+     * @returns {Boolean}
+     */
     isFourOfKind() {
         return this.combination == Combination.FOUR_OF_A_KIND;
     }
 
+    /**
+     * Returns true if hand has royal flush
+     * @returns {Boolean}
+     */
     isRoyalFlush() {
         return this.isStraightFlush() && this.combination.highestCard == Card.ACE;
     }
 
+    /**
+     * Returns true if hand has straight flush
+     * @returns {Boolean}
+     */
     isStraightFlush() {
         return this.combination == Combination.STRAIGHT_FLUSH;
     }
 
+    /**
+     * Apply reduce aggregator to underlying cards array
+     * @param {Function} aggregate 
+     * @param {*} start 
+     */
     reduce(aggregate, start) {
         const args = [aggregate];
         typeof start !== 'undefined' && args.push(start);
         return this.cards.reduce(...args);
     }
 
+    /**
+     * Sort cards in hand
+     * @param {String} order ASC or DESC
+     */
     sort(order = 'asc') {
         order = order.toLowerCase();
         this.cards.sort((l, r) => order === 'asc' ? l.compare(r) : r.compare(l));
     }
 
+    /**
+     * Apply every matcher to underlying cards array
+     * @param {Function} predicate 
+     */
     every(predicate) {
         return this.cards.every(predicate);
     }
 
+    /**
+     * Apply aggregator to each card in underlying cards array
+     * @param {Function} aggregate 
+     */
     forEach(aggregate) {
         this.cards.forEach(aggregate);
     }
