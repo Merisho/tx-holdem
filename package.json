@@ -6,14 +6,12 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {
-    "node-linq": "^0.0.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "^3.2.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "author": "",
   "license": "ISC"
