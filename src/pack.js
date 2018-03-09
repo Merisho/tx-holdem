@@ -1,31 +1,8 @@
 const Card = require('./card');
 
-const { SUIT_MAX, VALUE_MAX } = Card;
+const { SUIT_MAX, VALUE_MAX, ALIAS_TO_VALUE } = Card;
 
-const aliases = {
-    clubs: Card.CLUBS,
-    diamonds: Card.DIAMONDS,
-    hearts: Card.HEARTS,
-    spades: Card.SPADES,
-
-    2: Card.DEUCE,
-    3: Card.THREE,
-    4: Card.FOUR,
-    5: Card.FIVE,
-    6: Card.SIX,
-    7: Card.SEVEN,
-    8: Card.EIGHT,
-    9: Card.NINE,
-    10: Card.TEN,
-    jack: Card.JACK,
-    j: Card.JACK,
-    queen: Card.QUEEN,
-    q: Card.QUEEN,
-    king: Card.KING,
-    k: Card.KING,
-    ace: Card.ACE,
-    a: Card.ACE
-};
+const aliases = ALIAS_TO_VALUE;
 
 /**
  * @class Pack
