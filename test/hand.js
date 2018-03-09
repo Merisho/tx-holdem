@@ -47,4 +47,19 @@ describe('Hand', () => {
 
 		assert.deepEqual(hand.cards, cardsInDescending.reverse());
 	});
+
+	it('Should not modify array of cards passed as constructor arguments', () => {
+		const cards = [
+			new Card(Card.CLUBS, Card.DEUCE),
+			new Card(Card.CLUBS, Card.THREE),
+			new Card(Card.CLUBS, Card.FOUR),
+			new Card(Card.CLUBS, Card.FIVE),
+		];
+		const expectedCards = cards.slice(0, 4);
+
+		new Hand(cards);
+
+		assert.equal(cards.length, expectedCards.length);
+		assert.deepEqual(cards, expectedCards);
+	});
 });

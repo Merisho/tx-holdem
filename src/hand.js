@@ -13,7 +13,7 @@ class Hand {
     constructor(...cards) {
         cards = cards[0] && cards[0] instanceof Array ? cards[0] : cards;
 
-        this.cards = cards.splice(0, 5);
+        this.cards = cards.slice(0, 5);
         this._combination = null;
         this._drawCombination = null;
 
