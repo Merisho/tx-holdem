@@ -35,16 +35,22 @@ class Card {
     /**
      * Compare card to given and return either -1 or 0 or 1
      * @param {Card} card
-     * @returns {Boolean}
+     * @returns {Number}
      */
     compare(card) {
-        const diff = this - card;
-        return diff ? diff / Math.abs(diff) : 0;
+        if(this > card) {
+            return 1;
+        } else if(this < card) {
+            return -1;
+        }
+
+        return 0;
     }
 
     /**
      * Returns true if cards have equal suit
      * @param {Card} card
+     * @returns {Boolean}
      */
     equalBySuit(card) {
         return this.suit === card.suit;
@@ -53,6 +59,7 @@ class Card {
     /**
      * Returns true if cards have equal value
      * @param {Card} card
+     * @returns {Boolean}
      */
     equalByValue(card) {
         return this.value == card.value;
@@ -68,7 +75,7 @@ class Card {
     static get SPADES() { return 23; }
     static get SUIT_MAX() { return this.SPADES; }
 
-    static get DEUCE() { return 0; }
+    static get TWO() { return 0; }
     static get THREE() { return 1; }
     static get FOUR() { return 2; }
     static get FIVE() { return 3; }
@@ -90,7 +97,7 @@ class Card {
             hearts: Card.HEARTS,
             spades: Card.SPADES,
         
-            2: Card.DEUCE,
+            2: Card.TWO,
             3: Card.THREE,
             4: Card.FOUR,
             5: Card.FIVE,
@@ -117,7 +124,7 @@ class Card {
             [Card.HEARTS]: 'hearts',
             [Card.SPADES]: 'spades',
         
-            [Card.DEUCE]: 2,
+            [Card.TWO]: 2,
             [Card.THREE]: 3,
             [Card.FOUR]: 4,
             [Card.FIVE]: 5,

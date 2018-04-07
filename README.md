@@ -21,134 +21,45 @@ This is the module for creating own Texas Holdem poker game! It allows you to tr
 	const pairIsLower = pairHand.compare(fourOfAKindHand) === -1;
 	console.log('Pair is lower than four of a kind:', pairIsLower);
 # API
-## Pack
-### Pack()
-#### new Pack()
-### Members
+## Card
+- constructor(suit, value)
+	- suit: number
+	- value: number
 
-#### (readonly) count: Number
+Methods:
+- static create(suit, value): Card|null — creates Card instance, returns null is suit or value is not a number
+	- suit: number
+	- value: number
+- toString(): string — returns string representation of card
+- toJSON(): object — returns JSON representation of card
+- valueOf(): number — returns value representation of card (card.value property)
+- compare(card): number — compares current card with given by value, returns 1 if current is higher; -1 if current is lower; 0 if equal
+	- card: Card
+- equalBySuit(card): boolean — compares cards by suit
+	- card: Card
+- equalByValue(card): boolean — compares cards by value
+	- card: Card
+- isAce(): boolean — returns true if card is ace
 
-Count of created cards in pack
-### Methods
-
-#### createCard() → {Card}
-Creates random card
-
-#### createCard(suit, value) → {Card}
-Creates card with given suit and value
-##### Parameters:
- - suit: String
- - value: String | Number
- - 
-#### createCards(count) → {Array}
-Create specified number of random cards
-##### Parameters:
- - count: Number
- 
-#### destroy()
-Clear pack
-
-#### has(card) → {Boolean}
-Checks whether card exists in current Pack
-##### Parameters:
- - card: Card
-
-#### has(suit, value) → {Boolean}
-Checks whether card exists in current Pack
-##### Parameters:
-- suit: String
-- value: String | Number
-
-## Hand
-### Hand()
-#### new Hand()
-### Hand(…cards)
-#### new Hand(…cards)
-
-### Members
-
-#### (readonly) combination: Combination
-
-#### (readonly) drawCombination: DrawCombination
-
-### Methods
-
-#### addCard(card) → {Boolean}
-Add single card to hand
-##### Parameters:
- - card: Card
-
-#### addCards(cards) → {Boolean}
-Add given cards to hand
-##### Parameters:
- - cards: Array\<Cards\>
-
-#### compare(hand) → {Number}
-Compares combinations of current hand with given
-##### Parameters:
- - hand: Hand
-
-#### every(predicate)
-Apply every matcher to underlying cards array
-##### Parameters:
- - predicate: Function
-
-#### forEach(aggregate)
-Apply aggregator to each card in underlying cards array
-##### Parameters:
- - aggregate: Function
-
-#### has(card) → {Boolean}
-Checks whether card exists in current hand
-##### Parameters:
- - card: Card
-
-#### has(suit, value) → {Boolean}
-Checks whether card exists in current hand
-##### Parameters:
- - suit: Number
- - value: Number
-
-#### isFlush() → {Boolean}
-Returns true if hand has flush
-
-#### isFourOfKind() → {Boolean}
-Returns true if hand has four of a kind
-
-#### isFull() → {Boolean}
-Return true if hand has reached maximum capacity
-
-#### isFullHouse() → {Boolean}
-Returns true if hand has full house
-
-#### isKicker() → {Boolean}
-Returns true if hand has nothing but kicker card
-
-#### isPair() → {Boolean}
-Returns true if hand has pair
-
-#### isRoyalFlush() → {Boolean}
-Returns true if hand has royal flush
-
-#### isStraight() → {Boolean}
-Returns true if hand has straight
-
-#### isStraightFlush() → {Boolean}
-Returns true if hand has straight flush
-
-#### isThreeOfKind() → {Boolean}
-Returns true if hand has three of a kind
-
-#### isTwoPairs() → {Boolean}
-Returns true if hand has two pairs
-
-#### reduce(aggregate, start)
-Apply reduce aggregator to underlying cards array
-##### Parameters:
- - aggregate: Function
- - start: *
-
-#### sort(order)
-Sort cards in hand
-##### Parameters:
- - order: String ASC or DESC
+Properties:
+- suit: number
+- rank: number
+- static readonly CLUBS: number — constant value of clubs suit
+- static readonly DIAMONDS: number — constant value of diamonds suit
+- static readonly HEARTS: number — constant value of hearts suit
+- static readonly SPADES: number — constant value of spades suit
+- static readonly SUIT_MAX: number — constant value of max suit (spades)
+- static readonly TWO: number — constant value of 2 rank
+- static readonly THREE: number — constant value of 3 rank
+- static readonly FOUR: number — constant value of 4 rank
+- static readonly FIVE: number — constant value of 5 rank
+- static readonly SIX: number — constant value of 6 rank
+- static readonly SEVEN: number — constant value of 7 rank
+- static readonly EIGHT: number — constant value of 8 rank
+- static readonly NINE: number — constant value of 9 rank
+- static readonly TEN: number — constant value of 10 rank
+- static readonly JACK: number — constant value of jack rank
+- static readonly QUEEN: number — constant value of queen rank
+- static readonly KING: number — constant value of king rank
+- static readonly ACE: number — constant value of ace rank
+- static readonly VALUE_MAX: number — constant value of max rank (ace)

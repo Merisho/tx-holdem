@@ -7,7 +7,8 @@ class Combination {
         this._hand = hand;
         this._rank = null;
         this._cards = null;
-        this._highestCard = null;
+		this._highestCard = null;
+		this._name = '';
     }
 
     get highestCard() {
@@ -32,7 +33,15 @@ class Combination {
 		}
 		
 		return this._rank;
-    }
+	}
+	
+	get name() {
+		if(!this._name) {
+			this._name = combinationNames[this.rank] || '';
+		}
+
+		return this._name;
+	}
 
     valueOf() {
         return this.rank;
@@ -68,6 +77,86 @@ class Combination {
 		}
 		
 		return 0;
+	}
+
+	/**
+     * Returns true if combination is kicker only
+     * @returns {Boolean}
+    */
+   	isKicker() {
+		return this == Combination.KICKER;
+	}
+
+	/**
+	 * Returns true if combination is pair
+	 * @returns {Boolean}
+	 */
+	isPair() {
+		return this == Combination.PAIR;
+	}
+
+	/**
+	 * Returns true if combination has two pairs
+	 * @returns {Boolean}
+	 */
+	isTwoPairs() {
+		return this == Combination.TWO_PAIR;
+	}
+
+	/**
+	 * Returns true if combination is three of a kind
+	 * @returns {Boolean}
+	 */
+	isThreeOfKind() {
+		return this == Combination.THREE_OF_A_KIND;
+	}
+
+	/**
+	 * Returns true if combination is straight
+	 * @returns {Boolean}
+	 */
+	isStraight() {
+		return this == Combination.STRAIGHT;
+	}
+
+	/**
+	 * Returns true if combination is flush
+	 * @returns {Boolean}
+	 */
+	isFlush() {
+		return this == Combination.FLUSH;
+	}
+
+	/**
+	 * Returns true if combination is full house
+	 * @returns {Boolean}
+	 */
+	isFullHouse() {
+		return this == Combination.FULL_HOUSE;
+	}
+
+	/**
+	 * Returns true if combination is four of a kind
+	 * @returns {Boolean}
+	 */
+	isFourOfKind() {
+		return this == Combination.FOUR_OF_A_KIND;
+	}
+
+	/**
+	 * Returns true if combination is royal flush
+	 * @returns {Boolean}
+	 */
+	isRoyalFlush() {
+		return this.isStraightFlush() && this.highestCard == Card.ACE;
+	}
+
+	/**
+	 * Returns true if combination is straight flush
+	 * @returns {Boolean}
+	 */
+	isStraightFlush() {
+		return this == Combination.STRAIGHT_FLUSH;
 	}
 
 	_fullHouseComparison(combination) {
@@ -157,6 +246,20 @@ class Combination {
 	static get FULL_HOUSE() { return 6; }
 	static get FOUR_OF_A_KIND() { return 7; }
 	static get STRAIGHT_FLUSH() { return 8; }
+	static get ROYAL_FLUSH() { return 9; }
 }
+
+const combinationNames = {
+	[Combination.KICKER]: 'kicker',
+	[Combination.PAIR]: 'pair',
+	[Combination.TWO_PAIR]: 'two pairs',
+	[Combination.THREE_OF_A_KIND]: 'three of a kind',
+	[Combination.STRAIGHT]: 'straight',
+	[Combination.FLUSH]: 'flush',
+	[Combination.FULL_HOUSE]: 'full-house',
+	[Combination.FOUR_OF_A_KIND]: 'four of a kind',
+	[Combination.STRAIGHT_FLUSH]: 'straight flush',
+	[Combination.ROYAL_FLUSH]: 'royal flush',
+};
 
 module.exports = Combination;

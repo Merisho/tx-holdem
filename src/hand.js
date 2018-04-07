@@ -133,7 +133,7 @@ class Hand {
      * @returns {Boolean}
     */
     isKicker() {
-        return this.combination == Combination.KICKER;
+        return this.combination.isKicker();
     }
 
     /**
@@ -141,7 +141,7 @@ class Hand {
      * @returns {Boolean}
      */
     isPair() {
-        return this.combination == Combination.PAIR;
+        return this.combination.isPair();
     }
 
     /**
@@ -149,7 +149,7 @@ class Hand {
      * @returns {Boolean}
      */
     isTwoPairs() {
-        return this.combination == Combination.TWO_PAIR;
+        return this.combination.isTwoPairs();
     }
 
     /**
@@ -157,7 +157,7 @@ class Hand {
      * @returns {Boolean}
      */
     isThreeOfKind() {
-        return this.combination == Combination.THREE_OF_A_KIND;
+        return this.combination.isThreeOfKind();
     }
 
     /**
@@ -165,7 +165,7 @@ class Hand {
      * @returns {Boolean}
      */
     isStraight() {
-        return this.combination == Combination.STRAIGHT;
+        return this.combination.isStraight();
     }
 
     /**
@@ -173,7 +173,7 @@ class Hand {
      * @returns {Boolean}
      */
     isFlush() {
-        return this.combination == Combination.FLUSH;
+        return this.combination.isFlush();
     }
 
     /**
@@ -181,7 +181,7 @@ class Hand {
      * @returns {Boolean}
      */
     isFullHouse() {
-        return this.combination == Combination.FULL_HOUSE;
+        return this.combination.isFullHouse();
     }
 
     /**
@@ -189,7 +189,7 @@ class Hand {
      * @returns {Boolean}
      */
     isFourOfKind() {
-        return this.combination == Combination.FOUR_OF_A_KIND;
+        return this.combination.isFourOfKind();
     }
 
     /**
@@ -197,7 +197,7 @@ class Hand {
      * @returns {Boolean}
      */
     isRoyalFlush() {
-        return this.isStraightFlush() && this.combination.highestCard == Card.ACE;
+        return this.combination.isRoyalFlush();
     }
 
     /**
@@ -205,7 +205,7 @@ class Hand {
      * @returns {Boolean}
      */
     isStraightFlush() {
-        return this.combination == Combination.STRAIGHT_FLUSH;
+        return this.combination.isStraightFlush();
     }
 
     /**

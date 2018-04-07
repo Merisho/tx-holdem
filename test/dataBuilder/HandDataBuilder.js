@@ -61,7 +61,7 @@ class HandDataBuilder {
 }
 
 const cardValueNameToCardValue = {
-    2: Card.DEUCE,
+    2: Card.TWO,
     3: Card.THREE,
     4: Card.FOUR,
     5: Card.FIVE,

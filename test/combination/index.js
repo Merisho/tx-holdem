@@ -28,8 +28,8 @@ describe('Combination', () => {
 
 		it('detect combination cards', () => {
 			assert.equal(pairCombination.cards.length, 2);
-			assert.equal(pairCombination.cards[0].value, Card.DEUCE);
-			assert.equal(pairCombination.cards[1].value, Card.DEUCE);
+			assert.equal(pairCombination.cards[0].value, Card.TWO);
+			assert.equal(pairCombination.cards[1].value, Card.TWO);
 		});
 	});
 
@@ -43,8 +43,8 @@ describe('Combination', () => {
 
 		it('detect combination cards', () => {
 			assert.equal(twoPairsCombination.cards.length, 4);
-			assert.equal(twoPairsCombination.cards[0], Card.DEUCE);
-			assert.equal(twoPairsCombination.cards[1], Card.DEUCE);
+			assert.equal(twoPairsCombination.cards[0], Card.TWO);
+			assert.equal(twoPairsCombination.cards[1], Card.TWO);
 			assert.equal(twoPairsCombination.cards[2], Card.SEVEN);
 			assert.equal(twoPairsCombination.cards[3], Card.SEVEN);
 		});
@@ -290,44 +290,44 @@ describe('Combination', () => {
 			assert.equal(acesPairComb.compare(tensPairComb), 1);
 		});
 		
-		it('Two pairs of deuces and aces are higher than two pairs of deuces and kings', () => {
-			const deucesKingsHand = new HandBuilder().withDifferentSuits(10, 2, 2, 'K', 'K').build();
-			const deucesAcesHand = new HandBuilder().withDifferentSuits(10, 2, 2, 'A', 'A').build();
-			const deucesKingsComb = new Combination(deucesKingsHand);
-			const deucesAcesComb = new Combination(deucesAcesHand);
+		it('Two pairs of twos and aces are higher than two pairs of twos and kings', () => {
+			const twosKingsHand = new HandBuilder().withDifferentSuits(10, 2, 2, 'K', 'K').build();
+			const twosAcesHand = new HandBuilder().withDifferentSuits(10, 2, 2, 'A', 'A').build();
+			const twosKingsComb = new Combination(twosKingsHand);
+			const twosAcesComb = new Combination(twosAcesHand);
 
-			assert.equal(deucesKingsComb.compare(deucesAcesComb), -1);
-			assert.equal(deucesAcesComb.compare(deucesKingsComb), 1);
+			assert.equal(twosKingsComb.compare(twosAcesComb), -1);
+			assert.equal(twosAcesComb.compare(twosKingsComb), 1);
 		});
 
-		it('Aces three of a kind is higher than deuces three of a kind', () => {
-			const deucesHand = new HandBuilder().withDifferentSuits(2, 2, 2, 6, 4).build();
+		it('Aces three of a kind is higher than twos three of a kind', () => {
+			const twosHand = new HandBuilder().withDifferentSuits(2, 2, 2, 6, 4).build();
 			const acesHand = new HandBuilder().withDifferentSuits('A', 'A', 'A', 5, 'K').build();			
-			const deucesComb = new Combination(deucesHand);
+			const twosComb = new Combination(twosHand);
 			const acesComb = new Combination(acesHand);			
 
-			assert.equal(deucesComb.compare(acesComb), -1);
-			assert.equal(acesComb.compare(deucesComb), 1);
+			assert.equal(twosComb.compare(acesComb), -1);
+			assert.equal(acesComb.compare(twosComb), 1);
 		});
 
-		it('Ten to ace straight is higher than deuce to six straight', () => {
-			const deuceSixHand = new HandBuilder().withStraightFrom(2).build();
+		it('Ten to ace straight is higher than two to six straight', () => {
+			const twoSixHand = new HandBuilder().withStraightFrom(2).build();
 			const tenAceHand = new HandBuilder().withStraightFrom(10).build();
-			const deucesSixComb = new Combination(deuceSixHand);
+			const twosSixComb = new Combination(twoSixHand);
 			const tenAceComb = new Combination(tenAceHand);
 			
-			assert.equal(deucesSixComb.compare(tenAceComb), -1);
-			assert.equal(tenAceComb.compare(deucesSixComb), 1);
+			assert.equal(twosSixComb.compare(tenAceComb), -1);
+			assert.equal(tenAceComb.compare(twosSixComb), 1);
 		});
 
 		it('Deuce to six straight is higher than ace to five straight', () => {
 			const aceFiveHand = new HandBuilder().withDifferentSuits('A', 2, 3, 4, 5).build();
-			const deuceSixHand = new HandBuilder().withDifferentSuits(2, 3, 4, 5, 6).build();
+			const twoSixHand = new HandBuilder().withDifferentSuits(2, 3, 4, 5, 6).build();
 			const aceFiveComb = new Combination(aceFiveHand);
-			const deucesSixComb = new Combination(deuceSixHand);
+			const twosSixComb = new Combination(twoSixHand);
 			
-			assert.equal(aceFiveComb.compare(deucesSixComb), -1);
-			assert.equal(deucesSixComb.compare(aceFiveComb), 1);
+			assert.equal(aceFiveComb.compare(twosSixComb), -1);
+			assert.equal(twosSixComb.compare(aceFiveComb), 1);
 		});
 
 		it('Flush with ace is higher than flush with ten', () => {
@@ -341,13 +341,13 @@ describe('Combination', () => {
 		});
 
 		it('Full-house of three Tens and two Nines is higher than full-house of three Deuces and two Jacks', () => {
-			const deucesJacksHand = new HandBuilder().withDifferentSuits(2, 2, 2, 'J', 'J').build();
+			const twosJacksHand = new HandBuilder().withDifferentSuits(2, 2, 2, 'J', 'J').build();
 			const tensNinesHand = new HandBuilder().withDifferentSuits(10, 10, 10, 9, 9).build();
-			const deucesJacksComb = new Combination(deucesJacksHand);
+			const twosJacksComb = new Combination(twosJacksHand);
 			const tensNinesComb = new Combination(tensNinesHand);
 			
-			assert.equal(deucesJacksComb.compare(tensNinesComb), -1);
-			assert.equal(tensNinesComb.compare(deucesJacksComb), 1);
+			assert.equal(twosJacksComb.compare(tensNinesComb), -1);
+			assert.equal(tensNinesComb.compare(twosJacksComb), 1);
 		});
 
 		it('Kings for of a kind is higher than Queens four of a kind', () => {
@@ -361,13 +361,13 @@ describe('Combination', () => {
 		});
 
 		it('Six to Ten straight flush is higher than Deuce to Six straight flush', () => {
-			const deuceSixHand = new HandBuilder().withCardsOfClubs(2, 3, 4, 5, 6).build();
+			const twoSixHand = new HandBuilder().withCardsOfClubs(2, 3, 4, 5, 6).build();
 			const sixTenHand = new HandBuilder().withCardsOfClubs(6, 7, 8, 9, 10).build();
-			const deuceSixComb = new Combination(deuceSixHand);
+			const twoSixComb = new Combination(twoSixHand);
 			const sixTenComb = new Combination(sixTenHand);
 			
-			assert.equal(deuceSixComb.compare(sixTenComb), -1);
-			assert.equal(sixTenComb.compare(deuceSixComb), 1);
+			assert.equal(twoSixComb.compare(sixTenComb), -1);
+			assert.equal(sixTenComb.compare(twoSixComb), 1);
 		});
 	});
 	describe('Equal combinations', () => {
@@ -381,12 +381,12 @@ describe('Combination', () => {
 		});
 
 		it('Pair', () => {
-			const deucesPairHand1 = new HandBuilder().withDifferentSuits(2, 2, 7, 9, 10).build();
-			const deucesPairHand2 = new HandBuilder().withDifferentSuits(7, 9, 2, 2, 10).build();
-			const deucesPairComb1 = new Combination(deucesPairHand1);
-			const deucesPairComb2 = new Combination(deucesPairHand2);
+			const twosPairHand1 = new HandBuilder().withDifferentSuits(2, 2, 7, 9, 10).build();
+			const twosPairHand2 = new HandBuilder().withDifferentSuits(7, 9, 2, 2, 10).build();
+			const twosPairComb1 = new Combination(twosPairHand1);
+			const twosPairComb2 = new Combination(twosPairHand2);
 			
-			assert.equal(deucesPairComb1.compare(deucesPairComb2), 0);
+			assert.equal(twosPairComb1.compare(twosPairComb2), 0);
 		});
 
 		it('Two pairs', () => {

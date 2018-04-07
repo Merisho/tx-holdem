@@ -50,7 +50,7 @@ describe('Hand', () => {
 
 	it('Should not modify array of cards passed as constructor arguments', () => {
 		const cards = [
-			new Card(Card.CLUBS, Card.DEUCE),
+			new Card(Card.CLUBS, Card.TWO),
 			new Card(Card.CLUBS, Card.THREE),
 			new Card(Card.CLUBS, Card.FOUR),
 			new Card(Card.CLUBS, Card.FIVE),
