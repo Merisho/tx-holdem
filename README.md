@@ -44,22 +44,66 @@ Methods:
 Properties:
 - suit: number
 - rank: number
-- static readonly CLUBS: number — constant value of clubs suit
-- static readonly DIAMONDS: number — constant value of diamonds suit
-- static readonly HEARTS: number — constant value of hearts suit
-- static readonly SPADES: number — constant value of spades suit
+- static readonly CLUBS: number
+- static readonly DIAMONDS: number
+- static readonly HEARTS: number
+- static readonly SPADES: number
 - static readonly SUIT_MAX: number — constant value of max suit (spades)
-- static readonly TWO: number — constant value of 2 rank
-- static readonly THREE: number — constant value of 3 rank
-- static readonly FOUR: number — constant value of 4 rank
-- static readonly FIVE: number — constant value of 5 rank
-- static readonly SIX: number — constant value of 6 rank
-- static readonly SEVEN: number — constant value of 7 rank
-- static readonly EIGHT: number — constant value of 8 rank
-- static readonly NINE: number — constant value of 9 rank
-- static readonly TEN: number — constant value of 10 rank
-- static readonly JACK: number — constant value of jack rank
-- static readonly QUEEN: number — constant value of queen rank
-- static readonly KING: number — constant value of king rank
-- static readonly ACE: number — constant value of ace rank
+- static readonly TWO: number
+- static readonly THREE: number
+- static readonly FOUR: number
+- static readonly FIVE: number
+- static readonly SIX: number
+- static readonly SEVEN: number
+- static readonly EIGHT: number
+- static readonly NINE: number
+- static readonly TEN: number
+- static readonly JACK: number
+- static readonly QUEEN: number
+- static readonly KING: number
+- static readonly ACE: number
 - static readonly VALUE_MAX: number — constant value of max rank (ace)
+
+## Hand
+- constructor(...cards)
+	- ...cards: Card — enumeration or array of cards
+
+Methods:
+- addCards(...cards): boolean — adds multiple cards to hand
+	- ...cards: Card — enumeration or array of cards
+- addCard(card): boolean — adds single card to hand
+	- card: Card
+- isFull(): boolean — returns true if had has reached maximum capacity
+- has(card): boolean — returns true if had as given card
+	- card: Card
+- has(suit, value): boolean — returns true if hand has card with given suit and value
+	- suit: number
+	- value: number
+- compare(hand): number — returns -1 if current had has lower combination, 0 if hands are equal, 1 if hand is greater
+	- hand: Hand
+- isKicker(): boolean
+- isPair(): boolean
+- isTwoPairs(): boolean
+- isThreeOfKind(): boolean
+- isStraight(): boolean
+- isFlush(): boolean
+- isFullHouse(): boolean
+- isFourOfKind(): boolean
+- isStraightFlush(): boolean
+- isRoyalFlush(): boolean 
+- reduce(aggregate, start): any — applies aggregate function to each card in hand and returns single value; works in the same way as Array.reduce
+	- aggregate: function
+	- start: any
+- sort(order): undefined — sorts cards in hand by given order
+	- order: string — "asc" by default
+- every(predicate): boolean — returns true if every card matches given predicate function
+	- predicate: function
+- forEach(aggregate): undefined — applies aggregate function to each card in hand
+
+Properties:
+- readonly combination: Combination
+- readonly drawCombination: DrawCombination
+- readonly size: number
+- readonly lastCard: Card
+- readonly firstCard: Card
+- static readonly MAX_HAND_SIZE
