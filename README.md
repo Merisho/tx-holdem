@@ -2,6 +2,7 @@
 # Texas Holdem Poker
 This is the module for creating own Texas Holdem poker game! It allows you to track cards, compose hands, compare hands by combination and even calculate draw combinations.
 # Usage
+Compare combinations:
 
     const { Pack, Hand } = require('tx-holdem');
 
@@ -20,6 +21,30 @@ This is the module for creating own Texas Holdem poker game! It allows you to tr
 
 	const pairIsLower = pairHand.compare(fourOfAKindHand) === -1;
 	console.log('Pair is lower than four of a kind:', pairIsLower);
+
+Select highest combination from two hands (board and pocket cards):
+
+	const { Pack, Hand, HandsCollection } = require('../');
+
+	const pack = new Pack();
+
+	const board = new Hand([
+		pack.createCard('clubs', 5),
+		pack.createCard('diamonds', 6),
+		pack.createCard('spades', 8),
+		pack.createCard('hearts', 2),
+		pack.createCard('hearts', 9),
+	]);
+
+	const pocket = new Hand([
+		pack.createCard('spades', 7),
+		pack.createCard('spades', 9),
+	]);
+
+	const coll = HandsCollection.createCombinations(board, pocket);
+
+	console.log('Highest is', coll.highestCombination.name);
+
 # API
 ## Card
 - constructor(suit, rank)
