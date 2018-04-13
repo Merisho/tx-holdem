@@ -14,7 +14,7 @@ describe('Combination', () => {
 
 		it('detect combination cards', () => {
 			assert.equal(kickerCombination.cards.length, 1);
-			assert.equal(kickerCombination.cards[0].value, Card.ACE);
+			assert.equal(kickerCombination.cards[0].rank, Card.ACE);
 		});
 	});
 
@@ -28,8 +28,8 @@ describe('Combination', () => {
 
 		it('detect combination cards', () => {
 			assert.equal(pairCombination.cards.length, 2);
-			assert.equal(pairCombination.cards[0].value, Card.TWO);
-			assert.equal(pairCombination.cards[1].value, Card.TWO);
+			assert.equal(pairCombination.cards[0].rank, Card.TWO);
+			assert.equal(pairCombination.cards[1].rank, Card.TWO);
 		});
 	});
 
@@ -404,7 +404,7 @@ describe('Combination', () => {
 			const hand = new HandBuilder().withDifferentSuits(2, 3, 7, 9, 'A').build();
 			const comb = new Combination(hand);
 
-			assert.equal(comb.highestCard.value, Card.ACE);
+			assert.equal(comb.highestCard.rank, Card.ACE);
 		});
 	});
 });

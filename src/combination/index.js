@@ -160,8 +160,8 @@ class Combination {
 	}
 
 	_fullHouseComparison(combination) {
-		const highestCombinationCard = utils.getMostValuableFullHouseCardValue(combination.cards);
-		const highestThisCard = utils.getMostValuableFullHouseCardValue(this.cards);
+		const highestCombinationCard = utils.getMostValuableFullHouseCardRank(combination.cards);
+		const highestThisCard = utils.getMostValuableFullHouseCardRank(this.cards);
 
 		if(highestThisCard > highestCombinationCard) {
 			return 1;
@@ -173,7 +173,7 @@ class Combination {
 	}
 
 	/**
-	 * Returns combination's value
+	 * Returns combination's rank
 	 * @param {Hand} hand
 	 * @returns {Number}
 	 * @private
@@ -217,7 +217,7 @@ class Combination {
 		} else if(this.rank === Combination.KICKER) {	
 			cards = [ hand.cards[4] ];
 		} else {	
-			cards = utils.combinationCardsByValue(hand);
+			cards = utils.combinationCardsByRank(hand);
 		}
 	
 		return cards;
@@ -229,7 +229,7 @@ class Combination {
 		if(this.rank === Combination.STRAIGHT || this.rank === Combination.STRAIGHT_FLUSH) {
 			const last = cards[maxIndex];
 			const penult = cards[maxIndex - 1];
-			if(penult.value === Card.FIVE && last.value === Card.ACE) {
+			if(penult.rank === Card.FIVE && last.rank === Card.ACE) {
 				return penult;
 			}
 		}

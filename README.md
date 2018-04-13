@@ -22,22 +22,22 @@ This is the module for creating own Texas Holdem poker game! It allows you to tr
 	console.log('Pair is lower than four of a kind:', pairIsLower);
 # API
 ## Card
-- constructor(suit, value)
+- constructor(suit, rank)
 	- suit: Number
-	- value: Number
+	- rank: Number
 
 Methods:
-- static create(suit, value): Card | null — creates Card instance, returns null is suit or value is not a number
+- static create(suit, rank): Card | null — creates Card instance, returns null is suit or rank is not a number
 	- suit: Number
-	- value: Number
+	- rank: Number
 - toString(): String — returns string representation of card
 - toJSON(): object — returns JSON representation of card
-- valueOf(): Number — returns value representation of card (card.value property)
-- compare(card): Number — compares current card with given by value, returns 1 if current is higher; -1 if current is lower; 0 if equal
+- rankOf(): Number — returns rank representation of card (card.rank property)
+- compare(card): Number — compares current card with given by rank, returns 1 if current is higher; -1 if current is lower; 0 if equal
 	- card: Card
 - equalBySuit(card): Boolean — compares cards by suit
 	- card: Card
-- equalByValue(card): Boolean — compares cards by value
+- equalByRank(card): Boolean — compares cards by rank
 	- card: Card
 - isAce(): Boolean — returns true if card is ace
 
@@ -48,7 +48,7 @@ Properties:
 - static readonly DIAMONDS: Number
 - static readonly HEARTS: Number
 - static readonly SPADES: Number
-- static readonly SUIT_MAX: Number — constant value of max suit (spades)
+- static readonly SUIT_MAX: Number — constant rank of max suit (spades)
 - static readonly TWO: Number
 - static readonly THREE: Number
 - static readonly FOUR: Number
@@ -62,7 +62,7 @@ Properties:
 - static readonly QUEEN: Number
 - static readonly KING: Number
 - static readonly ACE: Number
-- static readonly VALUE_MAX: Number — constant value of max rank (ace)
+- static readonly RANK_MAX: Number — constant rank of max rank (ace)
 
 ## Hand
 - constructor(...cards)
@@ -76,9 +76,9 @@ Methods:
 - isFull(): Boolean — returns true if had has reached maximum capacity
 - has(card): Boolean — returns true if had as given card
 	- card: Card
-- has(suit, value): Boolean — returns true if hand has card with given suit and value
+- has(suit, rank): Boolean — returns true if hand has card with given suit and rank
 	- suit: Number
-	- value: Number
+	- rank: Number
 - compare(hand): Number — returns -1 if current had has lower combination, 0 if hands are equal, 1 if hand is greater
 	- hand: Hand
 - isKicker(): Boolean
@@ -91,7 +91,7 @@ Methods:
 - isFourOfKind(): Boolean
 - isStraightFlush(): Boolean
 - isRoyalFlush(): Boolean 
-- reduce(aggregate, start): any — applies aggregate function to each card in hand and returns single value; works in the same way as Array.reduce
+- reduce(aggregate, start): any — applies aggregate function to each card in hand and returns single rank; works in the same way as Array.reduce
 	- aggregate: Function
 	- start: any
 - sort(order): undefined — sorts cards in hand by given order
@@ -113,12 +113,12 @@ Methods:
 - destroy(): undefined — removes all cards from pack
 - createCards(count) — creates given number of random cards
 	- count: Number
-- createCard(suit, value): Card | null — creates card with given suit and value, in case one of arguments is not specified random card will be generated; returns null in case card with given suit and value already exists
+- createCard(suit, rank): Card | null — creates card with given suit and rank, in case one of arguments is not specified random card will be generated; returns null in case card with given suit and rank already exists
 	- suit: Number
-	- value: Number
+	- rank: Number
 - has(card): Boolean — returns true if given card already exists in pack, false otherwise
 	- card: Card
-- has(suit, value) — returns true if card with given suit and value already exists in pack, false otherwise
+- has(suit, rank) — returns true if card with given suit and rank already exists in pack, false otherwise
 
 Properties:
 - readonly count: Number — number of created cards in pack
@@ -161,7 +161,7 @@ Methods:
 - isFourOfKind(): Boolean
 - isRoyalFlush(): Boolean
 - isStraightFlush(): Boolean
-- valueOf(): Number — represents combination as its rank value
+- rankOf(): Number — represents combination as its rank rank
 - static readonly KICKER: Number
 - static readonly PAIR: Number
 - static readonly TWO_PAIR: Number

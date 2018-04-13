@@ -95,20 +95,20 @@ class Hand {
      *//**
      * Checks whether card exists in current hand
      * @param {Number} suit
-     * @param {Number} value
+     * @param {Number} rank
      * @returns {Boolean}
      */
-    has(card/*suit, value*/) {
+    has(card/*suit, rank*/) {
 		let s, v;
 		if(card && typeof card === 'object') {
 			s = card.suit;
-			v = card.value;
+			v = card.rank;
 		} else if(typeof arguments[0] !== 'undefined' && typeof arguments[1] !== 'undefined') {
 			s = arguments[0];
 			v = arguments[1];
 		}
 		
-		return this.cards.some(c => c.suit === s && c.value === v);
+		return this.cards.some(c => c.suit === s && c.rank === v);
     }
 
     /**

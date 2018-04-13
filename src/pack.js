@@ -1,8 +1,8 @@
 const Card = require('./card');
 
-const { SUIT_MAX, VALUE_MAX, ALIAS_TO_VALUE } = Card;
+const { SUIT_MAX, RANK_MAX, ALIAS_TO_RANK } = Card;
 
-const aliases = ALIAS_TO_VALUE;
+const aliases = ALIAS_TO_RANK;
 
 /**
  * @class Pack
@@ -14,7 +14,7 @@ class Pack {
 
 		for(let i = 0; i <= SUIT_MAX; i++) {
 			this._availableCards[i] = [];
-			for(let j = 0; j <= VALUE_MAX; j++) {
+			for(let j = 0; j <= RANK_MAX; j++) {
 				this._availableCards[i][j] = true;
 			}
 		}
@@ -54,12 +54,12 @@ class Pack {
      * Creates random card
      * @returns {Card}
      *//**
-     * Creates card with given suit and value
+     * Creates card with given suit and rank
      * @param {String} suit
-     * @param {String} value
+     * @param {String} rank
      * @returns {Card}
      */
-    createCard(suit, value) {
+    createCard(suit, rank) {
         const cards = this.cards;
 			
 		if(this.count === 52) {
@@ -71,17 +71,17 @@ class Pack {
 		if(suitEmpty && valEmpty) {
 			const randomCard = _generateRandomCard.call(this);
 			suit = randomCard.suit;
-			value = randomCard.value;
+			rank = randomCard.rank;
 		} else {
-			suit = _getValueByAlias(suit);
-			value = _getValueByAlias(value);
+			suit = _getRankByAlias(suit);
+			rank = _getRankByAlias(rank);
 
-			if(suit === null || value === null) {
+			if(suit === null || rank === null) {
 				return null;
 			}
 		}
 
-		return _createNewCard.call(this, suit, value);
+		return _createNewCard.call(this, suit, rank);
     }
 
     /**
@@ -91,17 +91,17 @@ class Pack {
      *//**
      * Checks whether card exists in current Pack
      * @param {Number} suit
-     * @param {Number} value
+     * @param {Number} rank
      * @returns {Boolean}
      */
-    has(card/*suit, value*/) {	
+    has(card/*suit, rank*/) {	
 		let s, v;
 		if(card instanceof Card) {
 			s = card.suit;
-			v = card.value;
+			v = card.rank;
 		} else if(typeof arguments[0] !== 'undefined' && typeof arguments[1] !== 'undefined') {
-			s = _getValueByAlias(arguments[0]);
-			v = _getValueByAlias(arguments[1]);
+			s = _getRankByAlias(arguments[0]);
+			v = _getRankByAlias(arguments[1]);
 
 			s === null && (s = arguments[0]);
 			v === null && (v = arguments[1]);
@@ -111,7 +111,7 @@ class Pack {
 	}
 }
 
-function _getValueByAlias(alias) {
+function _getRankByAlias(alias) {
 	if(typeof alias === 'undefined') {
 		return null;
 	}
@@ -136,14 +136,14 @@ function _createNewCard(suit, val) {
 
 function _generateRandomCard() {
 	let suit = Math.round(Math.random() * (SUIT_MAX)),
-		value = Math.round(Math.random() * (VALUE_MAX));
+		rank = Math.round(Math.random() * (RANK_MAX));
 
-	while(this.has(suit, value)) {
+	while(this.has(suit, rank)) {
 		suit = Math.round(Math.random() * (SUIT_MAX));
-		value = Math.round(Math.random() * (VALUE_MAX));
+		rank = Math.round(Math.random() * (RANK_MAX));
 	}
 	
-	return { suit, value };
+	return { suit, rank };
 }
 
 module.exports = Pack;

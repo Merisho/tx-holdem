@@ -1,56 +1,56 @@
 class Utils {
-    static combinationCardsByValue(hand) {
-        const cardsByVal = Utils.groupByValue(hand.cards);
+    static combinationCardsByRank(hand) {
+        const cardsByRank = Utils.groupByRank(hand.cards);
         
         let combinationCards = [];
     
-        for(let val in cardsByVal) {
-            const similarValuesCount = cardsByVal[val].length;
-            if(similarValuesCount > 1) {
-                combinationCards = combinationCards.concat(cardsByVal[val]);
+        for(let val in cardsByRank) {
+            const similarRanksCount = cardsByRank[val].length;
+            if(similarRanksCount > 1) {
+                combinationCards = combinationCards.concat(cardsByRank[val]);
             }
         }
     
         return combinationCards;
     }
 
-    static groupByValue(cards = []) {
-        const cardsByValue = {};
+    static groupByRank(cards = []) {
+        const cardsByRank = {};
 
         cards.forEach(c => {
-            if (!cardsByValue[c.value]) {
-                cardsByValue[c.value] = [];
+            if (!cardsByRank[c.rank]) {
+                cardsByRank[c.rank] = [];
             }
 
-            cardsByValue[c.value].push(c);
+            cardsByRank[c.rank].push(c);
         });
 
-        return cardsByValue;
+        return cardsByRank;
     }
 
-    static getMostValuableFullHouseCardValue(cards) {
-        const valuesCount = Utils.countSameValues(cards);
-        const values = Object.keys(valuesCount);
+    static getMostValuableFullHouseCardRank(cards) {
+        const ranksCount = Utils.countSameRanks(cards);
+        const ranks = Object.keys(ranksCount);
 
-        return valuesCount[values[0]] === 3 ? values[0] : values[1];
+        return ranksCount[ranks[0]] === 3 ? ranks[0] : ranks[1];
     }
 
-    static countSameValuesToArray(cards = []) {
-        return Object.values(Utils.countSameValues(cards));
+    static countSameRanksToArray(cards = []) {
+        return Object.values(Utils.countSameRanks(cards));
     }
 
-    static countSameValues(cards = []) {
-        const valueCountMap = {};
+    static countSameRanks(cards = []) {
+        const rankCountMap = {};
 
         cards.forEach(c => {
-            if(valueCountMap[c.value]) {
-				valueCountMap[c.value]++;
+            if(rankCountMap[c.rank]) {
+				rankCountMap[c.rank]++;
 			} else {
-				valueCountMap[c.value] = 1;
+				rankCountMap[c.rank] = 1;
 			}
         });
 
-        return valueCountMap;
+        return rankCountMap;
     }
 }
 

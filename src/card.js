@@ -1,35 +1,35 @@
 class Card {
-    static create(suit, value) {
-        if(typeof suit !== 'number' || typeof value !== 'number') {
+    static create(suit, rank) {
+        if(typeof suit !== 'number' || typeof rank !== 'number') {
             return null;
         }
     
-        return new this(suit, value);
+        return new this(suit, rank);
     }
 
     /**
      * @constructor
      * @param {Number} suit
-     * @param {Number} value
+     * @param {Number} rank
      */
-    constructor(suit, value) {
+    constructor(suit, rank) {
         this.suit = +suit;
-        this.value = +value;
+        this.rank = +rank;
     }
 
     toString() {
-        return this.suit + ' ' + this.value;
+        return this.suit + ' ' + this.rank;
     }
 
     toJSON() {
         return {
-            suit: Card.VALUE_TO_ALIAS[this.suit],
-            value: Card.VALUE_TO_ALIAS[this.value]
+            suit: Card.RANK_TO_ALIAS[this.suit],
+            rank: Card.RANK_TO_ALIAS[this.rank]
         };
     }
 
     valueOf() {
-        return this.value;
+        return this.rank;
     }
 
     /**
@@ -57,16 +57,16 @@ class Card {
     }
 
     /**
-     * Returns true if cards have equal value
+     * Returns true if cards have equal rank
      * @param {Card} card
      * @returns {Boolean}
      */
-    equalByValue(card) {
-        return this.value == card.value;
+    equalByRank(card) {
+        return this.rank == card.rank;
     }
 
     isAce() {
-        return this.value === this.constructor.ACE;
+        return this.rank === this.constructor.ACE;
     }
 
     static get CLUBS() { return 20; }
@@ -88,9 +88,9 @@ class Card {
     static get QUEEN() { return 10; }
     static get KING() { return 11; }
     static get ACE() { return 12; }
-    static get VALUE_MAX() { return this.ACE; }
+    static get RANK_MAX() { return this.ACE; }
 
-    static get ALIAS_TO_VALUE() {
+    static get ALIAS_TO_RANK() {
         return {
             clubs: Card.CLUBS,
             diamonds: Card.DIAMONDS,
@@ -117,7 +117,7 @@ class Card {
         };
     }
 
-    static get VALUE_TO_ALIAS() {
+    static get RANK_TO_ALIAS() {
         return {
             [Card.CLUBS]: 'clubs',
             [Card.DIAMONDS]: 'diamonds',
