@@ -1,65 +1,72 @@
 class Card {
-    static create(suit, value) {
-        if(typeof suit !== 'number' || typeof value !== 'number') {
+    static create(suit, rank) {
+        if(typeof suit !== 'number' || typeof rank !== 'number') {
             return null;
         }
     
-        return new this(suit, value);
+        return new this(suit, rank);
     }
 
     /**
      * @constructor
      * @param {Number} suit
-     * @param {Number} value
+     * @param {Number} rank
      */
-    constructor(suit, value) {
+    constructor(suit, rank) {
         this.suit = +suit;
-        this.value = +value;
+        this.rank = +rank;
     }
 
     toString() {
-        return this.suit + ' ' + this.value;
+        return this.suit + ' ' + this.rank;
     }
 
     toJSON() {
         return {
-            suit: Card.VALUE_TO_ALIAS[this.suit],
-            value: Card.VALUE_TO_ALIAS[this.value]
+            suit: Card.RANK_TO_ALIAS[this.suit],
+            rank: Card.RANK_TO_ALIAS[this.rank]
         };
     }
 
     valueOf() {
-        return this.value;
+        return this.rank;
     }
 
     /**
      * Compare card to given and return either -1 or 0 or 1
      * @param {Card} card
-     * @returns {Boolean}
+     * @returns {Number}
      */
     compare(card) {
-        const diff = this - card;
-        return diff ? diff / Math.abs(diff) : 0;
+        if(this > card) {
+            return 1;
+        } else if(this < card) {
+            return -1;
+        }
+
+        return 0;
     }
 
     /**
      * Returns true if cards have equal suit
      * @param {Card} card
+     * @returns {Boolean}
      */
     equalBySuit(card) {
         return this.suit === card.suit;
     }
 
     /**
-     * Returns true if cards have equal value
+     * Returns true if cards have equal rank
      * @param {Card} card
+     * @returns {Boolean}
      */
-    equalByValue(card) {
-        return this.value == card.value;
+    equalByRank(card) {
+        return this.rank == card.rank;
     }
 
     isAce() {
-        return this.value === this.constructor.ACE;
+        return this.rank === this.constructor.ACE;
     }
 
     static get CLUBS() { return 20; }
@@ -68,7 +75,7 @@ class Card {
     static get SPADES() { return 23; }
     static get SUIT_MAX() { return this.SPADES; }
 
-    static get DEUCE() { return 0; }
+    static get TWO() { return 0; }
     static get THREE() { return 1; }
     static get FOUR() { return 2; }
     static get FIVE() { return 3; }
@@ -81,16 +88,16 @@ class Card {
     static get QUEEN() { return 10; }
     static get KING() { return 11; }
     static get ACE() { return 12; }
-    static get VALUE_MAX() { return this.ACE; }
+    static get RANK_MAX() { return this.ACE; }
 
-    static get ALIAS_TO_VALUE() {
+    static get ALIAS_TO_RANK() {
         return {
             clubs: Card.CLUBS,
             diamonds: Card.DIAMONDS,
             hearts: Card.HEARTS,
             spades: Card.SPADES,
         
-            2: Card.DEUCE,
+            2: Card.TWO,
             3: Card.THREE,
             4: Card.FOUR,
             5: Card.FIVE,
@@ -110,14 +117,14 @@ class Card {
         };
     }
 
-    static get VALUE_TO_ALIAS() {
+    static get RANK_TO_ALIAS() {
         return {
             [Card.CLUBS]: 'clubs',
             [Card.DIAMONDS]: 'diamonds',
             [Card.HEARTS]: 'hearts',
             [Card.SPADES]: 'spades',
         
-            [Card.DEUCE]: 2,
+            [Card.TWO]: 2,
             [Card.THREE]: 3,
             [Card.FOUR]: 4,
             [Card.FIVE]: 5,

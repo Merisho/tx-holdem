@@ -21,15 +21,6 @@ describe('Hands combinations', () => {
 		
 		const collection = HandsCollection.createCombinations(board, hand);
 		
-		assert.equal(collection.highestCombinationRank, Combination.FLUSH);
-	});
-
-	it('Lowest combination', () => {
-		const board = boardBuilder.build();
-		const hand = new HandDataBuilder().withCardsOfClubs('A').withCardsOfSpades(10).build();
-		
-		const collection = HandsCollection.createCombinations(board, hand);
-		
-		assert.equal(collection.lowestCombinationRank, Combination.KICKER);
+		assert(collection.highestCombination.isFlush());
 	});
 });

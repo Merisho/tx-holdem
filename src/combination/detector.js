@@ -27,35 +27,35 @@ class Detector {
         if(isStraight) {
             const last = cards[maxIndex];
             const penult = cards[maxIndex - 1];
-            isStraight = (last.value === Card.ACE && penult.value === Card.FIVE) || last - penult === 1;
+            isStraight = (last.rank === Card.ACE && penult.rank === Card.FIVE) || last - penult === 1;
         }
         
         return isStraight;
     }
 
     static isFourOfAKind(cards) {
-        return utils.countSameValuesToArray(cards).includes(4);
+        return utils.countSameRanksToArray(cards).includes(4);
     }
 
     static isFullHouse(cards) {
-        const similarCount = utils.countSameValuesToArray(cards);
+        const similarCount = utils.countSameRanksToArray(cards);
         return similarCount.includes(2) && similarCount.includes(3);
     }
 
     static isThreeOfAKind(cards) {
-        return utils.countSameValuesToArray(cards).includes(3) && !Detector.isPair(cards) && !Detector.isFullHouse(cards);
+        return utils.countSameRanksToArray(cards).includes(3) && !Detector.isPair(cards) && !Detector.isFullHouse(cards);
     }
 
     static isTwoPairs(cards) {
-        const similarCount = utils.countSameValuesToArray(cards);
+        const similarCount = utils.countSameRanksToArray(cards);
         const firstIndex = similarCount.indexOf(2);
     
         return firstIndex !== similarCount.lastIndexOf(2) && firstIndex !== -1;
     }
 
     static isPair(cards) {
-        const sameValues = utils.countSameValuesToArray(cards);
-        return sameValues.includes(2) && !sameValues.includes(3) && !Detector.isTwoPairs(cards);
+        const sameRanks = utils.countSameRanksToArray(cards);
+        return sameRanks.includes(2) && !sameRanks.includes(3) && !Detector.isTwoPairs(cards);
     }
 }
 
