@@ -103,7 +103,7 @@ const OUTS = {
     ONE_SIDE_STRAIGHT_DRAW: 4
 };
 
-module.exports = function(cardsValues) {
-    cards = cardsValues;
+module.exports = function(cardsRanks) {
+    cards = cardsRanks;
     return _getOuts;
 };

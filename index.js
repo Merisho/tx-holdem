@@ -1,9 +1,8 @@
 module.exports = {
-    get Hand() {
-        return require('./src/hand');
-    },
-
-    get Pack() {
-        return require('./src/pack');
-    }
+    Hand: require('./src/hand'),
+    Pack: require('./src/pack'),
+    HandsCollection: require('./src/hands-collection'),
+    Combination: require('./src/combination'),
+    DrawCombination: require('./src/draw-combination'),
+    Card: require('./src/card')
 };

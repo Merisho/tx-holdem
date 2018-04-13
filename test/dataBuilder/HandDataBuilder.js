@@ -6,35 +6,35 @@ class HandDataBuilder {
         this.hand = new Hand();
     }
 
-    withDifferentSuits(...values) {
-        values.forEach((val, index) => {
+    withDifferentSuits(...ranks) {
+        ranks.forEach((val, index) => {
             this.withCardsOf(index, val);
         });
 
         return this;
     }
 
-    withCardsOfClubs(...values) {
-        return this.withCardsOf(Card.CLUBS, ...values);
+    withCardsOfClubs(...ranks) {
+        return this.withCardsOf(Card.CLUBS, ...ranks);
     }
 
-    withCardsOfSpades(...values) {
-        return this.withCardsOf(Card.SPADES, ...values);
+    withCardsOfSpades(...ranks) {
+        return this.withCardsOf(Card.SPADES, ...ranks);
     }
 
-    withCardsOf(suit, ...values) {
+    withCardsOf(suit, ...ranks) {
         suit %= Card.SUIT_MAX + 1;
-        values = values.slice(0, 5);
-        values.forEach(cardValueName => {
-            const value = getCardValueByName(cardValueName);
-            this.hand.addCard(new Card(suit, value));
+        ranks = ranks.slice(0, 5);
+        ranks.forEach(rankName => {
+            const rank = getCardRankByName(rankName);
+            this.hand.addCard(new Card(suit, rank));
         });
 
         return this;
     }
 
     withStraightFrom(start) {      
-        start = getCardValueByName(start);
+        start = getCardRankByName(start);
 
         if(start > Card.TEN && start !== Card.ACE) {
             start = Card.TEN;
@@ -42,9 +42,9 @@ class HandDataBuilder {
 
         for(let i = start; i < start + 5; i++) {
             const suit = i % (Card.SUIT_MAX + 1);
-            const value = i % (Card.VALUE_MAX + 1);
+            const rank = i % (Card.RANK_MAX + 1);
 
-            this.hand.addCard(new Card(suit, value));
+            this.hand.addCard(new Card(suit, rank));
         }
 
         return this;
@@ -60,8 +60,8 @@ class HandDataBuilder {
     }
 }
 
-const cardValueNameToCardValue = {
-    2: Card.DEUCE,
+const rankNameToCardRank = {
+    2: Card.TWO,
     3: Card.THREE,
     4: Card.FOUR,
     5: Card.FIVE,
@@ -75,9 +75,9 @@ const cardValueNameToCardValue = {
     k: Card.KING,
     a: Card.ACE
 };
-function getCardValueByName(name) {
+function getCardRankByName(name) {
     name = name && name.toString().toLowerCase();
-    return cardValueNameToCardValue[name];
+    return rankNameToCardRank[name];
 } 
 
 module.exports = HandDataBuilder;

@@ -2,6 +2,7 @@
 # Texas Holdem Poker
 This is the module for creating own Texas Holdem poker game! It allows you to track cards, compose hands, compare hands by combination and even calculate draw combinations.
 # Usage
+Compare combinations:
 
     const { Pack, Hand } = require('tx-holdem');
 
@@ -20,135 +21,183 @@ This is the module for creating own Texas Holdem poker game! It allows you to tr
 
 	const pairIsLower = pairHand.compare(fourOfAKindHand) === -1;
 	console.log('Pair is lower than four of a kind:', pairIsLower);
+
+Select highest combination from two hands (board and pocket cards):
+
+	const { Pack, Hand, HandsCollection } = require('../');
+
+	const pack = new Pack();
+
+	const board = new Hand([
+		pack.createCard('clubs', 5),
+		pack.createCard('diamonds', 6),
+		pack.createCard('spades', 8),
+		pack.createCard('hearts', 2),
+		pack.createCard('hearts', 9),
+	]);
+
+	const pocket = new Hand([
+		pack.createCard('spades', 7),
+		pack.createCard('spades', 9),
+	]);
+
+	const coll = HandsCollection.createCombinations(board, pocket);
+
+	console.log('Highest is', coll.highestCombination.name);
+
 # API
-## Pack
-### Pack()
-#### new Pack()
-### Members
+## Card
+- constructor(suit, rank)
+	- suit: Number
+	- rank: Number
 
-#### (readonly) count: Number
+Methods:
+- static create(suit, rank): Card | null — creates Card instance, returns null is suit or rank is not a number
+	- suit: Number
+	- rank: Number
+- toString(): String — returns string representation of card
+- toJSON(): object — returns JSON representation of card
+- rankOf(): Number — returns rank representation of card (card.rank property)
+- compare(card): Number — compares current card with given by rank, returns 1 if current is higher; -1 if current is lower; 0 if equal
+	- card: Card
+- equalBySuit(card): Boolean — compares cards by suit
+	- card: Card
+- equalByRank(card): Boolean — compares cards by rank
+	- card: Card
+- isAce(): Boolean — returns true if card is ace
 
-Count of created cards in pack
-### Methods
-
-#### createCard() → {Card}
-Creates random card
-
-#### createCard(suit, value) → {Card}
-Creates card with given suit and value
-##### Parameters:
- - suit: String
- - value: String | Number
- - 
-#### createCards(count) → {Array}
-Create specified number of random cards
-##### Parameters:
- - count: Number
- 
-#### destroy()
-Clear pack
-
-#### has(card) → {Boolean}
-Checks whether card exists in current Pack
-##### Parameters:
- - card: Card
-
-#### has(suit, value) → {Boolean}
-Checks whether card exists in current Pack
-##### Parameters:
-- suit: String
-- value: String | Number
+Properties:
+- suit: Number
+- rank: Number
+- static readonly CLUBS: Number
+- static readonly DIAMONDS: Number
+- static readonly HEARTS: Number
+- static readonly SPADES: Number
+- static readonly SUIT_MAX: Number — constant rank of max suit (spades)
+- static readonly TWO: Number
+- static readonly THREE: Number
+- static readonly FOUR: Number
+- static readonly FIVE: Number
+- static readonly SIX: Number
+- static readonly SEVEN: Number
+- static readonly EIGHT: Number
+- static readonly NINE: Number
+- static readonly TEN: Number
+- static readonly JACK: Number
+- static readonly QUEEN: Number
+- static readonly KING: Number
+- static readonly ACE: Number
+- static readonly RANK_MAX: Number — constant rank of max rank (ace)
 
 ## Hand
-### Hand()
-#### new Hand()
-### Hand(…cards)
-#### new Hand(…cards)
+- constructor(...cards)
+	- ...cards: Card — enumeration or array of cards
 
-### Members
+Methods:
+- addCards(...cards): Boolean — adds multiple cards to hand
+	- ...cards: Card — enumeration or array of cards
+- addCard(card): Boolean — adds single card to hand
+	- card: Card
+- isFull(): Boolean — returns true if had has reached maximum capacity
+- has(card): Boolean — returns true if had as given card
+	- card: Card
+- has(suit, rank): Boolean — returns true if hand has card with given suit and rank
+	- suit: Number
+	- rank: Number
+- compare(hand): Number — returns -1 if current had has lower combination, 0 if hands are equal, 1 if hand is greater
+	- hand: Hand
+- isKicker(): Boolean
+- isPair(): Boolean
+- isTwoPairs(): Boolean
+- isThreeOfKind(): Boolean
+- isStraight(): Boolean
+- isFlush(): Boolean
+- isFullHouse(): Boolean
+- isFourOfKind(): Boolean
+- isStraightFlush(): Boolean
+- isRoyalFlush(): Boolean 
+- reduce(aggregate, start): any — applies aggregate function to each card in hand and returns single rank; works in the same way as Array.reduce
+	- aggregate: Function
+	- start: any
+- sort(order): undefined — sorts cards in hand by given order
+	- order: String — "asc" by default
+- every(predicate): Boolean — returns true if every card matches given predicate
+	- predicate: Function
+- forEach(aggregate): undefined — applies aggregate function to each card in hand
 
-#### (readonly) combination: Combination
+Properties:
+- readonly combination: Combination
+- readonly drawCombination: DrawCombination
+- readonly size: Number
+- static readonly MAX_HAND_SIZE: Number
 
-#### (readonly) drawCombination: DrawCombination
+## Pack
+- constructor()
 
-### Methods
+Methods:
+- destroy(): undefined — removes all cards from pack
+- createCards(count) — creates given number of random cards
+	- count: Number
+- createCard(suit, rank): Card | null — creates card with given suit and rank, in case one of arguments is not specified random card will be generated; returns null in case card with given suit and rank already exists
+	- suit: Number
+	- rank: Number
+- has(card): Boolean — returns true if given card already exists in pack, false otherwise
+	- card: Card
+- has(suit, rank) — returns true if card with given suit and rank already exists in pack, false otherwise
 
-#### addCard(card) → {Boolean}
-Add single card to hand
-##### Parameters:
- - card: Card
+Properties:
+- readonly count: Number — number of created cards in pack
 
-#### addCards(cards) → {Boolean}
-Add given cards to hand
-##### Parameters:
- - cards: Array\<Cards\>
+## HandCollection
+- constructor(hands)
+	- hands: Array<Hand>
 
-#### compare(hand) → {Number}
-Compares combinations of current hand with given
-##### Parameters:
- - hand: Hand
+Methods:
+- static createCombinations(hand1, hand2): HandCollection — composes all possible card combinations with two given hands and returns HandCollection instance
+	- hand1: Hand
+	- hand2: Hand
 
-#### every(predicate)
-Apply every matcher to underlying cards array
-##### Parameters:
- - predicate: Function
+Properties:
+- readonly highestHand: Hand — strongest hand by combination in collection
+- readonly highestCombination: Combination — strongest combination in collection
+- readonly count: Number — number of hands in collection
 
-#### forEach(aggregate)
-Apply aggregator to each card in underlying cards array
-##### Parameters:
- - aggregate: Function
+## DrawCombination
+- constructor(hand)
+	- hand: Hand
 
-#### has(card) → {Boolean}
-Checks whether card exists in current hand
-##### Parameters:
- - card: Card
+Properties:
+- readonly outs: Number — outs for hand to achieve strong combination
 
-#### has(suit, value) → {Boolean}
-Checks whether card exists in current hand
-##### Parameters:
- - suit: Number
- - value: Number
+## Combination
+- constructor(hand)
+	- hand: Hand
 
-#### isFlush() → {Boolean}
-Returns true if hand has flush
+Methods:
+- compare(combination): Number — compares current combination with given, returns -1 if current is lower, 0 if both are equal, 1 if current if higher
+	- combination: Combination
+- isKicker(): Boolean
+- isPair(): Boolean
+- isTwoPairs(): Boolean
+- isThreeOfKind(): Boolean
+- isStraight(): Boolean
+- isFlush(): Boolean
+- isFullHouse(): Boolean
+- isFourOfKind(): Boolean
+- isRoyalFlush(): Boolean
+- isStraightFlush(): Boolean
+- rankOf(): Number — represents combination as its rank rank
+- static readonly KICKER: Number
+- static readonly PAIR: Number
+- static readonly TWO_PAIR: Number
+- static readonly THREE_OF_A_KIND: Number
+- static readonly STRAIGHT: Number
+- static readonly FLUSH: Number
+- static readonly FULL_HOUSE: Number
+- static readonly FOUR_OF_A_KIND: Number
 
-#### isFourOfKind() → {Boolean}
-Returns true if hand has four of a kind
-
-#### isFull() → {Boolean}
-Return true if hand has reached maximum capacity
-
-#### isFullHouse() → {Boolean}
-Returns true if hand has full house
-
-#### isKicker() → {Boolean}
-Returns true if hand has nothing but kicker card
-
-#### isPair() → {Boolean}
-Returns true if hand has pair
-
-#### isRoyalFlush() → {Boolean}
-Returns true if hand has royal flush
-
-#### isStraight() → {Boolean}
-Returns true if hand has straight
-
-#### isStraightFlush() → {Boolean}
-Returns true if hand has straight flush
-
-#### isThreeOfKind() → {Boolean}
-Returns true if hand has three of a kind
-
-#### isTwoPairs() → {Boolean}
-Returns true if hand has two pairs
-
-#### reduce(aggregate, start)
-Apply reduce aggregator to underlying cards array
-##### Parameters:
- - aggregate: Function
- - start: *
-
-#### sort(order)
-Sort cards in hand
-##### Parameters:
- - order: String ASC or DESC
+Properties:
+- readonly highestCard: Card — highest card in combination
+- readonly cards: Array<Card> — cards which compose combination
+- readonly rank: Number
+- readonly name: String
