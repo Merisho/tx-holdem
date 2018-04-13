@@ -80,14 +80,6 @@ class Hand {
         return this.cards.length;
     }
 
-    get lastCard() {
-        return this.cards[this.size - 1];
-    }
-
-    get firstCard() {
-        return this.cards[0];
-    }
-
     /**
      * Return true if hand has reached maximum capacity
      * @returns {Boolean}
