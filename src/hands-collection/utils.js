@@ -9,12 +9,12 @@ class Utils {
 	 * @param {Array} cards - Array of cards
 	 * @returns {Array}
 	 */
-	static getAllCombinationsOfHands(cards) {      
+	static getAllCombinationsOfHands(cards) {
         return Utils._combineCardsRecursively(cards);
     }
     
     static _combineCardsRecursively(cards, start = 0, index = 0, handCards = [], combinations = []) {
-        if(handCards.length === HAND_SIZE) {
+        if(handCards.length === HAND_SIZE || handCards.length === cards.length) {
             const h = new Hand();
             h.addCards(handCards);
             combinations.push(h);

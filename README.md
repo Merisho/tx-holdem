@@ -148,12 +148,12 @@ Methods:
 Properties:
 - readonly count: Number — number of created cards in pack
 
-## HandCollection
+## HandsCollection
 - constructor(hands)
 	- hands: Array<Hand>
 
 Methods:
-- static createCombinations(hand1, hand2): HandCollection — composes all possible card combinations with two given hands and returns HandCollection instance
+- static createCombinations(hand1, hand2): HandsCollection — composes all possible card combinations with two given hands and returns HandsCollection instance
 	- hand1: Hand
 	- hand2: Hand
 

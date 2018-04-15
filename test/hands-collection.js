@@ -23,4 +23,13 @@ describe('Hands combinations', () => {
 		
 		assert(collection.highestCombination.isFlush());
 	});
+
+	it('Returns combination of hand given as the only hand with cards', () => {
+		const hand = new HandDataBuilder().withDifferentSuits(3, 3, 3).build();
+		const emptyHand = new HandDataBuilder().build();
+
+		const collection = HandsCollection.createCombinations(hand, emptyHand);
+
+		assert(collection.highestCombination.isThreeOfKind());
+	});
 });
