@@ -121,33 +121,33 @@ describe('Draw combination', () => {
         it('Flush draw, 5 cards', () => {
             const hand = new HandBuilder().withCardsOfClubs(2, 'K', 4, 10).withCardsOfSpades(7).build();
             const draw = new DrawCombination(hand);
-            assert.equal(draw.outs, 4);
+            assert.equal(draw.outs, 9);
         });
 
         it('Flush draw, 4 cards', () => {
             const hand = new HandBuilder().withCardsOfClubs(2, 'K', 4, 10).build();
-            const draw = new DrawCombination(hand);            
-            assert.equal(draw.outs, 4);
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 9);
         });
     });
 
     describe('Straight and flush draw', () => {
         it('Two side straight draw + flush draw', () => {
             const hand = new HandBuilder().withCardsOfClubs(2, 4, 5, 7).withCardsOfSpades(3).build();
-            const draw = new DrawCombination(hand);            
-            assert.equal(draw.outs, 12);
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 17);
         });
 
         it('One side straight draw + flush draw', () => {
             const hand = new HandBuilder().withCardsOfClubs(2, 4, 6, 'A').withCardsOfSpades(3).build();
-            const draw = new DrawCombination(hand);            
-            assert.equal(draw.outs, 8);
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 13);
         });
 
         it('Gutshot straight draw + flush draw', () => {
             const hand = new HandBuilder().withCardsOfClubs(2, 4, 6, 10).withCardsOfSpades(3).build();
-            const draw = new DrawCombination(hand);            
-            assert.equal(draw.outs, 8);
+            const draw = new DrawCombination(hand);
+            assert.equal(draw.outs, 13);
         });
     });
 

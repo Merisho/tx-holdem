@@ -22,4 +22,13 @@ describe('Pack', function() {
 		
 		assert.equal(cards.length, 52);
 	});
+
+	it('Returns null when trying to create card with given suit and value more than once', () => {
+		const pack = new Pack();
+		
+		pack.createCard('clubs', 'ace');
+		const card = pack.createCard('clubs', 'ace');
+
+		assert.equal(card, null);
+	});
 });

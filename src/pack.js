@@ -126,7 +126,9 @@ function _createNewCard(suit, val) {
 	}
 
 	const exists = this.has(suit, val);
-	if(!exists) {
+	if(exists) {
+		return null;
+	} else {
 		!this.cards[suit] && (this.cards[suit] = []);
 		this.cards[suit][val] = true;
 	}

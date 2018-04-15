@@ -1,5 +1,5 @@
 function _getOuts(hand) {
-    return hand.size >= 4 && _isFlushDraw(hand) ? 4 : 0;
+    return hand.size >= 4 && _isFlushDraw(hand) ? 9 : 0;
 }
 
 function _isFlushDraw(hand) {
