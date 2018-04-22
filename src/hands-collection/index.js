@@ -16,6 +16,12 @@ class HandsCollection {
 		return this.highestHand.combination;
 	}
 
+	get bestDraw() {
+		return this.hands.reduce((h1, h2) => {
+			return h1.drawCombination.outs > h2.drawCombination.outs ? h1 : h2;
+		}).drawCombination;
+	}
+
 	get count() {
 		return this.hands.length;
 	}

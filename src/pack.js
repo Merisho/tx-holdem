@@ -1,6 +1,6 @@
 const Card = require('./card');
 
-const { SUIT_MAX, RANK_MAX, ALIAS_TO_RANK } = Card;
+const { SUIT_MIN, SUIT_MAX, RANK_MIN, RANK_MAX, ALIAS_TO_RANK } = Card;
 
 const aliases = ALIAS_TO_RANK;
 
@@ -10,21 +10,15 @@ const aliases = ALIAS_TO_RANK;
 class Pack {
     constructor() {
         this.cards = [];
-		this._availableCards = [];
-
-		for(let i = 0; i <= SUIT_MAX; i++) {
-			this._availableCards[i] = [];
-			for(let j = 0; j <= RANK_MAX; j++) {
-				this._availableCards[i][j] = true;
-			}
-		}
+		this._availableCards = this._availableCardsArray();
     }
 
 	/**
 	 * Clear pack
 	*/
     destroy() {
-        this.cards = [];
+		this.cards = [];
+		this._availableCards = this._availableCardsArray();
     }
 
 	/**
@@ -109,6 +103,22 @@ class Pack {
 
 		return !!(this.cards[s] && this.cards[s][v]);
 	}
+
+	_availableCardsArray() {
+		const cards = [];
+
+		for(let s = SUIT_MIN; s <= SUIT_MAX; s++) {
+			const card = {
+				suit: s
+			};
+			for(let r = RANK_MIN; r <= RANK_MAX; r++) {
+				card.rank = r;
+				cards.push(card);
+			}
+		}
+
+		return cards;
+	}
 }
 
 function _getRankByAlias(alias) {
@@ -137,15 +147,12 @@ function _createNewCard(suit, val) {
 }
 
 function _generateRandomCard() {
-	let suit = Math.round(Math.random() * (SUIT_MAX)),
-		rank = Math.round(Math.random() * (RANK_MAX));
+	const randIndex = Math.floor(Math.random() * this._availableCards.length);
+	const card = this._availableCards[randIndex];
 
-	while(this.has(suit, rank)) {
-		suit = Math.round(Math.random() * (SUIT_MAX));
-		rank = Math.round(Math.random() * (RANK_MAX));
-	}
-	
-	return { suit, rank };
+	this._availableCards.splice(randIndex, 1);
+
+	return card;
 }
 
 module.exports = Pack;

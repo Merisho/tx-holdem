@@ -24,7 +24,7 @@ Compare combinations:
 
 Select highest combination from two hands (board and pocket cards):
 
-	const { Pack, Hand, HandsCollection } = require('../');
+	const { Pack, Hand, HandsCollection } = require('tx-holdem');
 
 	const pack = new Pack();
 
@@ -52,19 +52,18 @@ Select highest combination from two hands (board and pocket cards):
 	- rank: Number
 
 Methods:
-- static create(suit, rank): Card | null — creates Card instance, returns null is suit or rank is not a number
+- static create(suit, rank): Card | null — creates Card instance, returns null if suit or rank is not a number
 	- suit: Number
 	- rank: Number
 - toString(): String — returns string representation of card
-- toJSON(): object — returns JSON representation of card
+- toJSON(): Object — returns JSON representation of card
 - rankOf(): Number — returns rank representation of card (card.rank property)
-- compare(card): Number — compares current card with given by rank, returns 1 if current is higher; -1 if current is lower; 0 if equal
+- compare(card): Number — compares current card with given by rank, returns 1 if current is higher; -1 if current is lower; 0 if both are equal
 	- card: Card
 - equalBySuit(card): Boolean — compares cards by suit
 	- card: Card
 - equalByRank(card): Boolean — compares cards by rank
 	- card: Card
-- isAce(): Boolean — returns true if card is ace
 
 Properties:
 - suit: Number
@@ -98,8 +97,8 @@ Methods:
 	- ...cards: Card — enumeration or array of cards
 - addCard(card): Boolean — adds single card to hand
 	- card: Card
-- isFull(): Boolean — returns true if had has reached maximum capacity
-- has(card): Boolean — returns true if had as given card
+- isFull(): Boolean — returns true if hand has reached maximum capacity
+- has(card): Boolean — returns true if hand has given card
 	- card: Card
 - has(suit, rank): Boolean — returns true if hand has card with given suit and rank
 	- suit: Number
@@ -174,7 +173,7 @@ Properties:
 	- hand: Hand
 
 Methods:
-- compare(combination): Number — compares current combination with given, returns -1 if current is lower, 0 if both are equal, 1 if current if higher
+- compare(combination): Number — compares current combination with given, returns -1 if current is lower, 0 if both are equal, 1 if current is higher
 	- combination: Combination
 - isKicker(): Boolean
 - isPair(): Boolean
@@ -186,7 +185,7 @@ Methods:
 - isFourOfKind(): Boolean
 - isRoyalFlush(): Boolean
 - isStraightFlush(): Boolean
-- rankOf(): Number — represents combination as its rank rank
+- rankOf(): Number — represents combination as its rank
 - static readonly KICKER: Number
 - static readonly PAIR: Number
 - static readonly TWO_PAIR: Number
