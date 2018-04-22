@@ -108,6 +108,12 @@ describe('Draw combination', () => {
                 const draw = new DrawCombination(hand);
                 assert.equal(draw.outs, 4);
             });
+
+            it('No gutshot, too big space between subsequences of cards', () => {
+                const hand = new HandBuilder().withCardsOfClubs(4, 5, 6).withCardsOfSpades(10, 'J').build();
+                const draw = new DrawCombination(hand);
+                assert.equal(draw.outs, 0);
+            });
         });
     });
 

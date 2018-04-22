@@ -14,7 +14,7 @@ class Utils {
     }
     
     static _combineCardsRecursively(cards, start = 0, index = 0, handCards = [], combinations = []) {
-        if(handCards.length === HAND_SIZE || handCards.length === cards.length) {
+        if(handCards.length === HAND_SIZE || (cards.length < HAND_SIZE && handCards.length === cards.length)) {
             const h = new Hand();
             h.addCards(handCards);
             combinations.push(h);

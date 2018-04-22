@@ -87,14 +87,15 @@ function _isGutshotStraightDraw(sequences) {
     // or last two sequences (b, c)
     // So first of all we will try first two then second two cards
     let calculateDraw = len => {
-        let s = sequences,
-            isFourCardsInBrokenSequence = s[len - 1].count > 1 || s[len - 2].count > 1,
-            spaceBetweenSubSequences = s[len - 1].lastCard - s[len - 1].count - s[len - 2].lastCard;
+        const s = sequences;
+
+        const isFourCardsInBrokenSequence = s[len - 1].count > 1 || s[len - 2].count > 1;
+        const spaceBetweenSubSequences = s[len - 1].lastCard - s[len - 1].count - s[len - 2].lastCard;
 
         return isFourCardsInBrokenSequence && spaceBetweenSubSequences === 1;
     };
 
-    return calculateDraw(2) || calculateDraw(3);
+    return calculateDraw(2) || (sequences.length > 2 && calculateDraw(3));
 }
 
 const OUTS = {

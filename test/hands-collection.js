@@ -32,4 +32,13 @@ describe('Hands combinations', () => {
 
 		assert(collection.highestCombination.isThreeOfKind());
 	});
+
+	it('Returns best draw combination', () => {
+		const hand = new HandDataBuilder().withCardsOfClubs(4, 5).build();
+		const board = new HandDataBuilder().withCardsOfClubs(6, 7).withCardsOfSpades(10, 'J').build();
+
+		const collection = HandsCollection.createCombinations(hand, board);
+		
+		assert.equal(collection.bestDraw.outs, 17);
+	});
 });

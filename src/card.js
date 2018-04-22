@@ -65,14 +65,11 @@ class Card {
         return this.rank == card.rank;
     }
 
-    isAce() {
-        return this.rank === this.constructor.ACE;
-    }
-
     static get CLUBS() { return 20; }
     static get DIAMONDS() { return 21; }
     static get HEARTS() { return 22; }
     static get SPADES() { return 23; }
+    static get SUIT_MIN() { return this.CLUBS; }
     static get SUIT_MAX() { return this.SPADES; }
 
     static get TWO() { return 0; }
@@ -88,6 +85,7 @@ class Card {
     static get QUEEN() { return 10; }
     static get KING() { return 11; }
     static get ACE() { return 12; }
+    static get RANK_MIN() { return this.TWO; }
     static get RANK_MAX() { return this.ACE; }
 
     static get ALIAS_TO_RANK() {
