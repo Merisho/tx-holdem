@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "mocha --recursive",
-    "compile": "npx babel src -d compiled"
+    "compile": "npx babel src -d browser/src && npx babel index.js --out-file ./browser/index.js"
   },
   "author": {
     "name": "Alexei Torunov",
