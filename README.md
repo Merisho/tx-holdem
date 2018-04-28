@@ -1,6 +1,14 @@
 
 # Texas Holdem Poker
 This is the module for creating own Texas Holdem poker game! It allows you to track cards, compose hands, compare hands by combination and even calculate draw combinations.
+# Browsers support
+Since version 0.2.2 tx-holdem is available for browsers!
+See [demo app](https://merisho.github.io/)
+
+	import * as txHoldem from 'tx-holdem/browser';
+	// OR
+	var txHoldem = require('tx-holdem/browser');
+
 # Usage
 Compare combinations:
 
