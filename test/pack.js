@@ -15,6 +15,13 @@ describe('Pack', function() {
 
 		assert.strictEqual(pack.has('clubs', 'ace'), true);
 	});
+
+	it('create two known cards', () => {
+		const pack = new Pack();
+		
+		assert.notEqual(pack.createCard('clubs', 9), null);
+		assert.notEqual(pack.createCard('clubs', 'J'), null);
+	});
 	
 	it('create 52 cards', function() {
 		const pack = new Pack();

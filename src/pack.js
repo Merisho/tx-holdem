@@ -1,8 +1,9 @@
 const Card = require('./card');
 
-const { SUIT_MIN, SUIT_MAX, RANK_MIN, RANK_MAX, ALIAS_TO_RANK } = Card;
+const { SUIT_MIN, SUIT_MAX, RANK_MIN, RANK_MAX, ALIAS_TO_RANK, RANK_TO_ALIAS } = Card;
 
 const aliases = ALIAS_TO_RANK;
+const ranks = RANK_TO_ALIAS;
 
 /**
  * @class Pack
@@ -130,12 +131,20 @@ function _getRankByAlias(alias) {
 	return typeof aliases[alias] === 'undefined' ? null : aliases[alias];
 }
 
+function _getAliasByValue(val) {
+	if(typeof val === 'undefined') {
+		return null;
+	}
+
+	return typeof ranks[val] === 'undefined' ? null : ranks[val];
+}
+
 function _createNewCard(suit, val) {
 	if(typeof suit === 'undefined' || typeof val === 'undefined') {
 		return null;
 	}
 
-	const exists = this.has(suit, val);
+	const exists = this.has(_getAliasByValue(suit), _getAliasByValue(val));
 	if(exists) {
 		return null;
 	} else {
