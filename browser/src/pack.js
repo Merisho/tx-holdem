@@ -10,10 +10,12 @@ var SUIT_MIN = Card.SUIT_MIN,
     SUIT_MAX = Card.SUIT_MAX,
     RANK_MIN = Card.RANK_MIN,
     RANK_MAX = Card.RANK_MAX,
-    ALIAS_TO_RANK = Card.ALIAS_TO_RANK;
+    ALIAS_TO_RANK = Card.ALIAS_TO_RANK,
+    RANK_TO_ALIAS = Card.RANK_TO_ALIAS;
 
 
 var aliases = ALIAS_TO_RANK;
+var ranks = RANK_TO_ALIAS;
 
 /**
  * @class Pack
@@ -165,12 +167,20 @@ function _getRankByAlias(alias) {
 	return typeof aliases[alias] === 'undefined' ? null : aliases[alias];
 }
 
+function _getAliasByValue(val) {
+	if (typeof val === 'undefined') {
+		return null;
+	}
+
+	return typeof ranks[val] === 'undefined' ? null : ranks[val];
+}
+
 function _createNewCard(suit, val) {
 	if (typeof suit === 'undefined' || typeof val === 'undefined') {
 		return null;
 	}
 
-	var exists = this.has(suit, val);
+	var exists = this.has(_getAliasByValue(suit), _getAliasByValue(val));
 	if (exists) {
 		return null;
 	} else {
