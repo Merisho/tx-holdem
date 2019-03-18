@@ -28,6 +28,7 @@ describe('Pack', function() {
 		const cards = pack.createCards(52);
 		
 		assert.equal(cards.length, 52);
+		assert(cards.every(c => c !== null));
 	});
 
 	it('Returns null when trying to create card with given suit and value more than once', () => {

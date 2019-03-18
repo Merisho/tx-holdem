@@ -137,11 +137,11 @@ var Pack = function () {
 			var cards = [];
 
 			for (var s = SUIT_MIN; s <= SUIT_MAX; s++) {
-				var card = {
-					suit: s
-				};
 				for (var r = RANK_MIN; r <= RANK_MAX; r++) {
-					card.rank = r;
+					var card = {
+						suit: s,
+						rank: r
+					};
 					cards.push(card);
 				}
 			}
