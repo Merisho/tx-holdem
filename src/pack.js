@@ -109,11 +109,11 @@ class Pack {
 		const cards = [];
 
 		for(let s = SUIT_MIN; s <= SUIT_MAX; s++) {
-			const card = {
-				suit: s
-			};
 			for(let r = RANK_MIN; r <= RANK_MAX; r++) {
-				card.rank = r;
+				const card = {
+					suit: s,
+					rank: r
+				};
 				cards.push(card);
 			}
 		}
