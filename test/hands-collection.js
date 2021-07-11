@@ -1,4 +1,5 @@
 const assert = require('assert');
+const Card = require('../src/card');
 const Combination = require('../src/combination');
 const HandsCollection = require('../src/hands-collection');
 const HandDataBuilder = require('./dataBuilder/HandDataBuilder');
@@ -22,6 +23,15 @@ describe('Hands combinations', () => {
 		const collection = HandsCollection.createCombinations(board, hand);
 		
 		assert(collection.highestCombination.isFlush());
+	});
+
+	it('Highest combination with only high cards', () => {
+		const board = boardBuilder.build()
+		const hand = new HandDataBuilder().withCardsOfSpades(7, 8).build()
+
+		const cards = HandsCollection.createCombinations(board, hand).highestCombination._hand.cards
+		assert.notStrictEqual(cards[0], new Card(23, 5))
+		assert.notStrictEqual(cards[0], new Card(23, 6))
 	});
 
 	it('Returns combination of hand given as the only hand with cards', () => {
