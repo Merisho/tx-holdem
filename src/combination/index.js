@@ -67,8 +67,8 @@ class Combination {
 		if(highestCardComparison !== 0) {
 			return highestCardComparison;
 		}
-		const thisCards = this.cards;
-		const combCards = combination.cards;
+		const thisCards = this._hand.cards;
+		const combCards = combination._hand.cards;
 		for(let i = thisCards.length - 1; i >= 0; i--) {
 			const cardComparison = thisCards[i].compare(combCards[i]);
 			if(cardComparison !== 0) {
